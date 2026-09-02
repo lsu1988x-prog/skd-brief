@@ -1,0 +1,916 @@
+<title>SK디스커버리 재무 모닝브리프</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #f5f4f2;
+    --surface: #ffffff;
+    --surface-2: #faf9f7;
+    --ink: #17161a;
+    --ink-2: #57555c;
+    --ink-3: #8b8890;
+    --line: #e4e2de;
+    --line-2: #d2d0cb;
+    --accent: #e5322d;         /* SK 브랜드 계열 레드, 크롬용 */
+    --accent-soft: #fdeceb;
+    --up: #c92a2a;             /* 국내 시장 관행: 상승=적색 */
+    --up-soft: #fbe9e9;
+    --down: #1f5fbf;           /* 하락=청색 */
+    --down-soft: #e6eef9;
+    --flat: #8b8890;
+    --ok: #0ca30c; --warn: #d98c00; --crit: #d03b3b;
+    --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4;
+    --grid: #e8e6e2;
+    --shadow: 0 1px 2px rgba(23,22,26,.05), 0 6px 20px -12px rgba(23,22,26,.12);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg: #131217; --surface: #1c1b21; --surface-2: #232228;
+      --ink: #f3f2f5; --ink-2: #b9b7c0; --ink-3: #85828c;
+      --line: #2c2b32; --line-2: #3a3941;
+      --accent: #ff5a52; --accent-soft: #3a1f1f;
+      --up: #ff6b6b; --up-soft: #3b1f22; --down: #5aa0ff; --down-soft: #1c2a42;
+      --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181;
+      --grid: #2a2930;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px -12px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #131217; --surface: #1c1b21; --surface-2: #232228;
+    --ink: #f3f2f5; --ink-2: #b9b7c0; --ink-3: #85828c;
+    --line: #2c2b32; --line-2: #3a3941;
+    --accent: #ff5a52; --accent-soft: #3a1f1f;
+    --up: #ff6b6b; --up-soft: #3b1f22; --down: #5aa0ff; --down-soft: #1c2a42;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181;
+    --grid: #2a2930;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px -12px rgba(0,0,0,.5);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+    font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased;
+  }
+  .num { font-family: "IBM Plex Mono", "IBM Plex Sans KR", monospace; font-variant-numeric: tabular-nums; }
+  a { color: inherit; }
+
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 20px 24px 64px; display: grid; gap: 20px; }
+
+  /* ---- Top bar ---- */
+  .topbar { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-bottom: 14px; border-bottom: 2px solid var(--ink); }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand-mark { width: 34px; height: 34px; border-radius: 8px; background: var(--accent); display: grid; place-items: center; color: #fff; font-weight: 700; font-size: 13px; letter-spacing: .02em; }
+  .brand h1 { margin: 0; font-size: 20px; font-weight: 700; letter-spacing: -.01em; line-height: 1.2; }
+  .brand .sub { margin: 2px 0 0; color: var(--ink-2); font-size: 12.5px; }
+  .meta { display: flex; gap: 18px; align-items: center; font-size: 12.5px; color: var(--ink-2); flex-wrap: wrap; }
+  .meta b { color: var(--ink); font-weight: 600; }
+  .mock { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-weight: 600; font-size: 12px; letter-spacing: .02em; }
+
+  /* ---- Cards ---- */
+  .wrap > *, .row-2 > *, .row-3 > * { min-width: 0; }
+  .card { min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); }
+  .card-h { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 14px 18px 0; }
+  .card-h h2 { margin: 0; font-size: 14px; font-weight: 700; letter-spacing: -.005em; }
+  .card-h .hint { font-size: 12px; color: var(--ink-3); }
+  .card-b { padding: 12px 18px 16px; }
+  .eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+
+  /* data status chips */
+  .chip { display: inline-block; font-size: 10.5px; font-weight: 600; letter-spacing: .04em; padding: 1px 6px; border-radius: 4px; border: 1px solid var(--line-2); color: var(--ink-2); vertical-align: middle; }
+  .chip.dart { border-color: var(--ok); color: var(--ok); }
+  .chip.ref { border-color: var(--warn); color: var(--warn); }
+  .chip.ex { border-style: dashed; color: var(--ink-3); }
+  .chip.na { border-color: var(--crit); color: var(--crit); }
+
+  /* ---- Ticker row ---- */
+  .tickers { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; }
+  .tk { padding: 14px 16px 12px; display: grid; gap: 6px; position: relative; overflow: hidden; }
+  .tk .name { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-weight: 600; font-size: 13px; }
+  .tk .name > span:first-child { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tk .name .code { color: var(--ink-3); font-weight: 500; font-size: 11px; white-space: nowrap; flex-shrink: 0; }
+  .tk .price { font-size: 24px; font-weight: 600; letter-spacing: -.01em; line-height: 1.1; }
+  .tk .price small { font-size: 12px; color: var(--ink-3); font-weight: 500; margin-left: 2px; }
+  .tk .chg { font-size: 12.5px; font-weight: 600; display: flex; gap: 8px; align-items: center; }
+  .tk .chg.up { color: var(--up); } .tk .chg.down { color: var(--down); } .tk .chg.flat { color: var(--flat); }
+  .tk .chg .pill { padding: 1px 6px; border-radius: 4px; font-size: 11.5px; }
+  .tk .chg.up .pill { background: var(--up-soft); } .tk .chg.down .pill { background: var(--down-soft); }
+  .tk .spark { height: 40px; margin: 2px -4px 0; }
+  .tk .spark svg { width: 100%; height: 100%; display: block; overflow: visible; }
+  .sparkdates { display: flex; justify-content: space-between; font-size: 10px; color: var(--ink-3); margin: 1px 2px 0; font-variant-numeric: tabular-nums; }
+  .tk .foot { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--ink-3); }
+  .tk .foot b { color: var(--ink-2); font-weight: 500; }
+  .tk.holding { border-color: var(--ink); }
+  .tk.holding::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent); }
+
+  /* ---- Layout grids ---- */
+  .row-2 { display: grid; grid-template-columns: 1.55fr 1fr; gap: 20px; }
+  .row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+
+  /* ---- Today's line ---- */
+  .today { padding: 18px 20px; display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: start; background: linear-gradient(180deg, var(--surface), var(--surface-2)); }
+  .today .day { text-align: center; padding: 6px 10px; border-right: 1px solid var(--line); min-width: 72px; }
+  .today .day .d { font-size: 30px; font-weight: 700; line-height: 1; letter-spacing: -.02em; }
+  .today .day .m { font-size: 11.5px; color: var(--ink-3); margin-top: 4px; }
+  .today .lead { font-size: 17px; font-weight: 600; line-height: 1.45; letter-spacing: -.01em; text-wrap: balance; margin: 0 0 8px; }
+  .today .lead em { font-style: normal; color: var(--accent); }
+  .today p { margin: 0; color: var(--ink-2); font-size: 13.5px; max-width: 68ch; }
+  .today .by { margin-top: 10px; font-size: 12px; color: var(--ink-3); display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .today .by .avatar { width: 20px; height: 20px; border-radius: 50%; background: var(--ink); color: var(--surface); display: inline-grid; place-items: center; font-size: 10px; font-weight: 700; }
+  .react { display: inline-flex; gap: 6px; }
+  .react button { font: inherit; font-size: 12px; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--line-2); background: var(--surface); color: var(--ink-2); cursor: pointer; }
+  .react button:hover, .react button:focus-visible { border-color: var(--ink); color: var(--ink); outline: none; }
+
+  /* ---- Story (news + board) ---- */
+  .story { padding: 18px 20px; display: grid; gap: 12px; align-content: start; }
+  .story .lead { font-size: 17px; font-weight: 600; line-height: 1.45; letter-spacing: -.01em; text-wrap: balance; margin: 0; }
+  .story .lead em { font-style: normal; color: var(--accent); }
+  .story .src { font-size: 12px; color: var(--ink-3); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .news { display: grid; gap: 0; border-top: 1px solid var(--line); }
+  .news .n { display: grid; grid-template-columns: 8px 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); align-items: start; }
+  .news .n .sw { width: 8px; height: 8px; border-radius: 2px; margin-top: 6px; }
+  .news .n .t { font-size: 13.5px; font-weight: 600; line-height: 1.4; }
+  .news .n .t a { text-decoration: none; }
+  .news .n .t a:hover { text-decoration: underline; }
+  .news .n .m { font-size: 12px; color: var(--ink-3); margin-top: 2px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .news .n .m .co { color: var(--ink-2); font-weight: 500; }
+  .news .n .why { font-size: 12.5px; color: var(--ink-2); margin-top: 3px; }
+  .tag { display: inline-block; font-size: 10.5px; font-weight: 600; padding: 1px 6px; border-radius: 4px; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); }
+  .tag.pos { color: var(--up); border-color: var(--up); background: var(--up-soft); }
+  .tag.neg { color: var(--down); border-color: var(--down); background: var(--down-soft); }
+  .quote-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .q { padding: 10px 12px; border-radius: 8px; background: var(--surface-2); border: 1px solid var(--line); font-size: 12.5px; color: var(--ink-2); display: grid; gap: 4px; }
+  .q .who { font-size: 11.5px; color: var(--ink-3); display: flex; justify-content: space-between; gap: 8px; }
+  .q .who b { color: var(--ink-2); font-weight: 500; }
+  .q .txt { color: var(--ink); line-height: 1.45; }
+
+  /* ---- Disclosure tabs ---- */
+  .tabs { display: flex; flex-wrap: wrap; gap: 4px; padding: 10px 18px 0; border-bottom: 1px solid var(--line); }
+  .tabs button { font: inherit; font-size: 12.5px; font-weight: 600; padding: 7px 12px; border: 0; background: transparent; color: var(--ink-3); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; display: flex; align-items: center; gap: 7px; }
+  .tabs button .sw { width: 8px; height: 8px; border-radius: 2px; }
+  .tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+  .tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .disc { display: grid; }
+  .disc .d { display: grid; grid-template-columns: 62px 1fr auto; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); align-items: start; }
+  .disc .d:last-child { border-bottom: 0; }
+  .disc .dt { font-size: 12.5px; font-weight: 600; }
+  .disc .dt small { display: block; font-weight: 500; color: var(--ink-3); font-size: 11px; }
+  .disc .t { font-size: 13px; font-weight: 600; }
+  .disc .t a { text-decoration: none; }
+  .disc .t a:hover { text-decoration: underline; }
+  .disc .x { font-size: 12.5px; color: var(--ink-2); margin-top: 2px; }
+  .disc .k { font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 4px; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); white-space: nowrap; }
+  .disc .k.major { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+
+  /* ---- Board sentiment ---- */
+  .board { display: grid; gap: 14px; }
+  .bd { display: grid; grid-template-columns: 118px 1fr; gap: 12px; align-items: start; }
+  .bd .nm { font-size: 13px; font-weight: 600; }
+  .bd .nm small { display: block; font-weight: 400; color: var(--ink-3); font-size: 11.5px; }
+  .sent { display: flex; height: 10px; border-radius: 5px; overflow: hidden; gap: 2px; background: var(--surface); }
+  .sent span { display: block; height: 100%; }
+  .sent .p { background: var(--up); } .sent .n { background: var(--line-2); } .sent .g { background: var(--down); }
+  .sent-lab { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--ink-3); margin-top: 4px; }
+  .sent-lab .p { color: var(--up); font-weight: 600; } .sent-lab .g { color: var(--down); font-weight: 600; }
+  .kw { margin-top: 6px; display: flex; gap: 5px; flex-wrap: wrap; }
+  .kw span { font-size: 11.5px; padding: 1px 7px; border-radius: 999px; border: 1px solid var(--line-2); color: var(--ink-2); }
+  .bd .top { margin-top: 6px; font-size: 12.5px; color: var(--ink-2); line-height: 1.4; }
+  .bd .top b { font-weight: 500; color: var(--ink); }
+  .warnbox { margin-top: 12px; font-size: 11.5px; color: var(--ink-3); padding: 8px 10px; border: 1px dashed var(--line-2); border-radius: 6px; }
+
+  /* ---- Market vars ---- */
+  .mvg { padding: 10px 0 8px; border-bottom: 1px dashed var(--line); }
+  .mvg:last-child { border-bottom: 0; }
+  .mvg .h { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .mvg .k { font-size: 12.5px; color: var(--ink-2); }
+  .mvg .v { font-size: 16px; font-weight: 700; white-space: nowrap; }
+  .mvg .v span { font-size: 11.5px; font-weight: 600; margin-left: 6px; }
+  .mvg .v .up { color: var(--up); } .mvg .v .down { color: var(--down); }
+  .mvg .spark { height: 58px; margin: 4px -2px 0; }
+  .mvg .spark svg { width: 100%; height: 100%; display: block; overflow: visible; }
+  .mvg .why { font-size: 11.5px; color: var(--ink-3); margin-top: 3px; }
+  .mvg a.k { text-decoration: none; font-weight: 700; color: var(--ink); font-size: 13px; }
+  .mvg a.k:hover { text-decoration: underline; }
+  .rrow { display: flex; justify-content: space-between; gap: 12px; font-size: 12.5px; color: var(--ink-2); padding: 3px 0; }
+  .rrow small { color: var(--ink-3); }
+  a.rlink { text-decoration: none; border-radius: 6px; }
+  a.rlink:hover { background: var(--surface-2); text-decoration: underline; }
+
+  /* ---- Results table ---- */
+  .tbl-wrap { overflow-x: auto; }
+  table.res { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 720px; }
+  table.res th, table.res td { padding: 9px 10px; text-align: right; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  table.res th { font-size: 11.5px; font-weight: 600; color: var(--ink-3); letter-spacing: .03em; border-bottom: 1px solid var(--line-2); }
+  table.res th:first-child, table.res td:first-child { text-align: left; }
+  table.res td:first-child { font-weight: 600; }
+  table.res tr:last-child td { border-bottom: 0; }
+  table.res .sw { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 8px; vertical-align: 1px; }
+  table.res .basis { font-size: 11px; color: var(--ink-3); font-weight: 400; margin-left: 4px; }
+  .yoy.up { color: var(--up); } .yoy.down { color: var(--down); }
+  .neg { color: var(--down); }
+  .bar-cell { min-width: 150px; }
+  .bar { display: flex; align-items: center; gap: 6px; height: 14px; }
+  .bar .track { position: relative; flex: 1; height: 100%; }
+  .bar .zero { position: absolute; top: -3px; bottom: -3px; width: 1px; background: var(--line-2); }
+  .bar .fill { position: absolute; top: 2px; height: 10px; border-radius: 0 3px 3px 0; }
+  .bar .fill.negf { border-radius: 3px 0 0 3px; }
+
+  table.res tr.sub td { background: var(--surface-2); }
+  table.res tr.sub td:first-child { font-weight: 400; color: var(--ink-2); padding-left: 26px; }
+  table.res td .yoy { font-size: 11.5px; font-weight: 600; margin-left: 5px; }
+  table.res td.note { font-size: 12px; color: var(--ink-2); white-space: normal; min-width: 220px; max-width: 360px; text-align: left; font-weight: 400; }
+
+
+  /* ---- Value block ---- */
+  .kv { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .kv .it { padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); }
+  .kv .k { font-size: 11.5px; color: var(--ink-3); }
+  .kv .v { font-size: 20px; font-weight: 600; letter-spacing: -.01em; margin-top: 2px; }
+  .kv .v small { font-size: 12px; color: var(--ink-3); font-weight: 500; margin-left: 3px; }
+  .kv .n { font-size: 11.5px; color: var(--ink-2); margin-top: 2px; }
+  .nav-note { margin-top: 12px; font-size: 12.5px; color: var(--ink-2); padding: 10px 12px; border-left: 3px solid var(--line-2); background: var(--surface-2); border-radius: 0 6px 6px 0; }
+
+  /* ---- Calendar ---- */
+  .cal { display: grid; gap: 0; }
+  .cal .ev { display: grid; grid-template-columns: 54px 1fr auto; gap: 10px; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--line); }
+  .cal .ev:last-child { border-bottom: 0; }
+  .cal .dt { font-weight: 600; font-size: 12.5px; }
+  .cal .dt small { display: block; font-weight: 500; color: var(--ink-3); font-size: 11px; }
+  .cal .t { font-size: 13px; }
+  .cal .t small { display: block; color: var(--ink-3); font-size: 11.5px; }
+  .cal .dday { font-size: 11.5px; font-weight: 600; color: var(--ink-2); padding: 2px 7px; border-radius: 4px; background: var(--surface-2); border: 1px solid var(--line); }
+  .cal .dday.soon { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+
+  /* ---- Term of the week ---- */
+  .term h3 { margin: 0 0 6px; font-size: 16px; font-weight: 700; letter-spacing: -.01em; }
+  .term p { margin: 0 0 8px; color: var(--ink-2); font-size: 13px; max-width: 60ch; }
+  .term .ex { padding: 10px 12px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; font-size: 12.5px; }
+  .term .ex b { font-weight: 600; }
+
+  /* ---- Notes ---- */
+  .notes { padding: 16px 20px; border-style: dashed; background: transparent; box-shadow: none; }
+  .notes h2 { margin: 0 0 8px; font-size: 13px; }
+  .notes ol { margin: 0; padding-left: 18px; color: var(--ink-2); font-size: 12.5px; display: grid; gap: 4px; }
+  .notes .leg { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; font-size: 12px; color: var(--ink-2); }
+
+  /* ---- Board detail view ---- */
+  .bd { cursor: pointer; border-radius: 8px; padding: 6px; margin: -6px; transition: background .12s; }
+  .bd:hover, .bd:focus-visible { background: var(--surface-2); outline: none; }
+  .view { display: none; }
+  .view.on { display: grid; gap: 20px; }
+  .wrap.hidden { display: none; }
+  .bv-top { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; padding-bottom: 14px; border-bottom: 2px solid var(--ink); }
+  .back { font: inherit; font-size: 13px; font-weight: 600; padding: 7px 12px; border-radius: 8px; border: 1px solid var(--line-2); background: var(--surface); color: var(--ink); cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+  .back:hover, .back:focus-visible { border-color: var(--ink); outline: none; }
+  .bv-title { display: flex; align-items: center; gap: 12px; }
+  .bv-title h1 { margin: 0; font-size: 20px; font-weight: 700; }
+  .bv-title .sw { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+  .cotabs { display: flex; gap: 6px; flex-wrap: wrap; }
+  .cotabs button { font: inherit; font-size: 12.5px; font-weight: 600; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line-2); background: var(--surface); color: var(--ink-2); cursor: pointer; display: inline-flex; gap: 7px; align-items: center; }
+  .cotabs button .sw { width: 8px; height: 8px; border-radius: 2px; }
+  .cotabs button[aria-selected="true"] { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+  .bv-sum { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 12px; }
+  .bv-sum .it { padding: 12px 14px; }
+  .bv-sum .k { font-size: 11.5px; color: var(--ink-3); }
+  .bv-sum .v { font-size: 20px; font-weight: 600; margin-top: 2px; }
+  .bv-sum .v small { font-size: 12px; color: var(--ink-3); font-weight: 500; margin-left: 3px; }
+  .bv-sum .n { font-size: 12px; color: var(--ink-2); margin-top: 4px; }
+  .ext { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .ext a { font-size: 12.5px; font-weight: 600; padding: 7px 12px; border-radius: 8px; text-decoration: none; border: 1px solid var(--line-2); background: var(--surface); color: var(--ink); }
+  .ext a.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .ext a:hover { border-color: var(--ink); }
+  .ext a.primary:hover { filter: brightness(.95); }
+  .filters { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .filters button { font: inherit; font-size: 12px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line-2); background: var(--surface); color: var(--ink-2); cursor: pointer; }
+  .filters button[aria-pressed="true"] { border-color: var(--ink); color: var(--ink); background: var(--surface-2); }
+  .filters .cnt { font-size: 12px; color: var(--ink-3); margin-left: auto; }
+  .posts { display: grid; }
+  .post { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "h side" "b side" "m side"; gap: 6px 14px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .post:last-child { border-bottom: 0; }
+  .post .h { grid-area: h; font-size: 13.5px; font-weight: 600; line-height: 1.4; }
+  .post .b { grid-area: b; font-size: 13px; color: var(--ink-2); line-height: 1.5; max-width: 78ch; }
+  .post .m { grid-area: m; display: flex; gap: 10px; flex-wrap: wrap; font-size: 11.5px; color: var(--ink-3); align-items: center; }
+  .post .m .num { color: var(--ink-2); }
+  .post .side { grid-area: side; display: grid; gap: 4px; align-content: start; text-align: right; }
+  .post .side .agree { font-size: 12px; font-weight: 600; color: var(--ink-2); }
+  .post .side .src { font-size: 11px; color: var(--ink-3); }
+  .post .h a { text-decoration: none; }
+  .post .h a:hover { text-decoration: underline; }
+  @media (max-width: 760px) { .bv-sum { grid-template-columns: 1fr; } }
+
+  .linkchip { font: inherit; font-size: 10.5px; font-weight: 600; letter-spacing: .04em; cursor: pointer; background: var(--surface); }
+  .linkchip:hover, .linkchip:focus-visible { border-color: var(--ink); color: var(--ink); border-style: solid; outline: none; }
+  .linkline { font: inherit; font-size: 12px; color: var(--ink-3); background: transparent; border: 0; padding: 0; cursor: pointer; display: inline-flex; gap: 4px; align-items: center; }
+  .linkline:hover, .linkline:focus-visible { color: var(--ink); outline: none; }
+  .post .co { font-size: 11px; font-weight: 600; padding: 1px 7px; border-radius: 4px; border: 1px solid var(--line-2); color: var(--ink-2); display: inline-flex; gap: 5px; align-items: center; }
+  .post .co .sw { width: 7px; height: 7px; border-radius: 2px; display: inline-block; }
+
+  /* tooltip */
+  .tip { position: fixed; pointer-events: none; background: var(--ink); color: var(--surface); font-size: 12px; padding: 5px 8px; border-radius: 5px; opacity: 0; transition: opacity .12s; z-index: 10; white-space: nowrap; }
+  .tip.on { opacity: 1; }
+
+  @media (max-width: 980px) {
+    .tickers { grid-template-columns: repeat(2, 1fr); }
+    .macro-row { grid-template-columns: 1fr !important; }
+    .row-2, .row-3 { grid-template-columns: 1fr; }
+    .quote-row { grid-template-columns: 1fr; }
+    .kv { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .wrap { padding: 14px 14px 48px; }
+    .tickers { grid-template-columns: 1fr; }
+    .today { grid-template-columns: 1fr; }
+    .today .day { border-right: 0; border-bottom: 1px solid var(--line); text-align: left; display: flex; gap: 8px; align-items: baseline; }
+  }
+  @media (prefers-reduced-motion: reduce) { .tip { transition: none; } }
+</style>
+
+<div class="wrap">
+
+  <!-- ===== Top bar ===== -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">SKD</div>
+      <div>
+        <h1>SK디스커버리 재무 모닝브리프</h1>
+        <p class="sub">SK디스커버리와 멤버사의 숫자, 매일 아침 3분</p>
+      </div>
+    </div>
+    <div class="meta">
+      <span><b>2026.09.02 (수)</b> 16:45 갱신 · 종가 기준</span>
+      <span>시장 데이터 <b>9/2 장종료(15:30) · 일별 시계열 StockAnalysis</b></span>
+      <span>실적 <b>2026년 2분기 공시 기준</b></span>
+      <span class="mock">v2.12</span>
+    </div>
+  </header>
+
+  <!-- ===== Ticker row ===== -->
+  <section class="tickers" id="tickers" aria-label="멤버사 주가"></section>
+
+  <!-- ===== FX / KOSPI cards ===== -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px" class="macro-row">
+    <article class="card tk" aria-label="원달러 환율">
+      <div class="name"><span><span class="sw" style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--s1);margin-right:7px;vertical-align:1px"></span>원/달러 환율</span><span class="code">ECB 고시 <span class="chip ref">실제</span></span></div>
+      <div class="price num">1,366.6<small>원</small></div>
+      <div class="chg down num"><span>▼ 5.7</span><span class="pill">-0.41%</span></div>
+      <div class="spark" data-spark="fx" style="height:110px"></div>
+      <div class="sparkdates"><span>8.4</span><span style="color:var(--line-2)">마우스로 일별 조회</span><span>9.2</span></div>
+      <div class="foot"><span>SK케미칼 수출 · SK가스 LPG 매입원가에 직결</span></div>
+    </article>
+    <article class="card tk" aria-label="코스피">
+      <div class="name"><span><span class="sw" style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--s3);margin-right:7px;vertical-align:1px"></span>코스피</span><span class="code">종가 <span class="chip ref">실제</span></span></div>
+      <div class="price num">6,562.7</div>
+      <div class="chg down num"><span>▼ 273.08</span><span class="pill">-3.99%</span></div>
+      <div class="spark" data-spark="kospi" style="height:110px"></div>
+      <div class="sparkdates"><span>8.4</span><span style="color:var(--line-2)">마우스로 일별 조회</span><span>9.2</span></div>
+      <div class="foot"><span>7월 말 급변동 구간 포함 — 멤버사 상대강도 비교 기준</span></div>
+    </article>
+  </div>
+
+  <!-- ===== Today + Market ===== -->
+  <div class="row-2">
+    <section class="card story" aria-label="오늘의 시장 이야기">
+      <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap">
+        <span class="eyebrow">오늘의 시장 이야기 · 뉴스 + 종토방 자동 수집</span>
+        <span class="src"><span class="chip ref">뉴스·주가 실제</span></span>
+      </div>
+      
+      <div class="src"><span>뉴스: 다음뉴스 검색 최신순 · 9/2 16:45 갱신 · 회사별 최신 3~8건 · 여론은 네이버 종토방 실제</span><span>·</span><button type="button" class="linkline" data-open-board="ALL">여론(네이버 238건) <span class="tag pos">긍정 25%</span> <span class="tag neg">부정 30%</span> <span style="color:var(--ink-3)">· 종토방 의견 보기 ›</span></button></div>
+
+      <div class="tabs" id="ntabs" role="tablist" style="padding:0;border-bottom:1px solid var(--line)"></div>
+      <div class="news" id="news" style="border-top:0;max-height:640px;overflow-y:auto;padding-right:6px"></div>
+
+    </section>
+
+    <section class="card" aria-label="종토방 여론">
+      <div class="card-h"><h2>종토방은 지금 <span class="chip ref">네이버 실제</span></h2><span class="hint">9/2 16:30 수집 · 감성은 글을 읽고 분류</span></div>
+      <div class="tabs" id="btabs" role="tablist"></div>
+      <div class="card-b">
+        <div id="bsum" style="margin-bottom:10px"></div>
+        <div class="posts" id="bposts" style="max-height:560px;overflow-y:auto;padding-right:6px"></div>
+        <div class="warnbox">네이버 종목토론실 게시글을 PC 수집기로 가져오고, 감성(긍정/부정/중립)은 Claude가 제목과 본문을 읽고 판단해 분류합니다(표시된 최신 15건 기준). 검증되지 않은 개인 의견이며 회사의 입장이 아닙니다. 작성자 정보는 표시하지 않습니다.</div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ===== Results ===== -->
+  <section class="card" aria-label="2분기 실적">
+    <div class="card-h">
+      <h2>2026년 상반기 실적 한눈에 (반기 누적) <span class="chip dart">공시</span></h2>
+      <span class="hint">단위: 억원 · 1~6월 누적 · 전년동기 대비 · 출처: 각사 반기보고서(DART)</span>
+    </div>
+    <div class="card-b"><div id="res"></div></div>
+  </section>
+
+  <!-- ===== Disclosures + Board ===== -->
+  <div class="row-2">
+    <section class="card" aria-label="멤버사 공시내역">
+      <div class="card-h"><h2>멤버사 공시 <span class="chip dart">DART 실제</span></h2><span class="hint">SK플라즈마(비상장) 포함 · 클릭하면 원문</span></div>
+      <div class="tabs" id="dtabs" role="tablist"></div>
+      <div class="card-b"><div class="disc" id="disc" role="tabpanel"></div></div>
+    </section>
+
+    <section class="card" aria-label="오늘의 시장 변수">
+      <div class="card-h"><h2>우리 회사에 영향을 주는 시장 변수</h2><span class="hint">9/2 기준</span></div>
+      <div class="card-b">
+        <div id="mktvars"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ===== Reports: broker + rating agency ===== -->
+  <div class="row-2">
+    <section class="card" aria-label="증권사 리포트">
+      <div class="card-h"><h2>증권사 리포트 <span class="chip ref">실제</span></h2><span class="hint">FnGuide 컨센서스(9/2) · 클릭하면 종목 상세</span></div>
+      <div class="card-b"><div id="broker"></div></div>
+    </section>
+    <section class="card" aria-label="신용평가 리포트">
+      <div class="card-h"><h2>신용평가 리포트 <span class="chip ref">실제</span></h2><span class="hint">한국신용평가 · 클릭하면 업체 평가 페이지</span></div>
+      <div class="card-b"><div id="rating"></div></div>
+    </section>
+  </div>
+
+  <!-- ===== KPI + Value ===== -->
+  <div>
+    <section class="card" aria-label="SK디스커버리 가치">
+      <div class="card-h"><h2>SK디스커버리, 시장은 어떻게 보나</h2><span class="hint">8/28 종가</span></div>
+      <div class="card-b">
+        <div class="kv">
+          <div class="it"><div class="k">시가총액 <span class="chip ref">실제</span></div><div class="v num">8,759<small>억원</small></div><div class="n">보통주 기준 · 종가 50,300원</div></div>
+          <div class="it"><div class="k">PBR <span class="chip ref">실제</span></div><div class="v num">0.32<small>배</small></div><div class="n">장부가의 1/3에 거래</div></div>
+          <div class="it"><div class="k">배당수익률 <span class="chip ref">실제</span></div><div class="v num">3.98<small>%</small></div><div class="n">분기배당 500원 · 국고채 3년 대비 +0.2%p</div></div>
+          <div class="it"><div class="k">NAV 할인율</div><div class="v num">62<small>%</small></div><div class="n"><span class="chip ex">예시</span> 지주사 평균 55~65%</div></div>
+          <div class="it"><div class="k">신용등급 <span class="chip dart">공시</span></div><div class="v">A+<small>회사채 · CP A2+</small></div><div class="n">한신평·한기평·NICE 3사 동일, 2026.06 정기평정 (반기보고서)</div></div>
+          <div class="it"><div class="k">PER <span class="chip ref">실제</span></div><div class="v num">7.7<small>배</small></div><div class="n">EPS 6,549원 (WiseReport)</div></div>
+        </div>
+        <div class="nav-note">지주사 주가는 보유 자회사 가치(NAV)보다 낮게 거래됩니다. 할인율이 줄어드는 것이 곧 우리 주가가 오르는 길이고, 그 열쇠는 멤버사 실적과 배당입니다.</div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ===== Term ===== -->
+  <div>
+    <section class="card term" aria-label="이번 주 재무 용어">
+      <div class="card-h"><h2>이번 주 용어 한 입</h2><span class="hint">매주 월요일 갱신</span></div>
+      <div class="card-b">
+        <h3>NAV 할인율 — "지갑 안에 10만원이 있는데 지갑을 4만원에 파는 것"</h3>
+        <p>지주사의 순자산가치(NAV)는 보유한 자회사 지분 가치를 다 더하고 빚을 뺀 금액입니다. 주식시장이 그 금액보다 얼마나 싸게 우리 회사를 사고 있는지가 할인율입니다. 이중과세, 지배구조, 자회사 실적 불확실성이 클수록 할인율이 커집니다.</p>
+        <div class="ex"><b>우리 회사 예:</b> 자회사 지분가치와 순차입금을 반영한 NAV가 약 2.3조원이라면, 시총 8,933억원은 약 62% 할인 (예시 수치). 할인율이 10%p만 줄어도 시총은 약 2,300억원 늘어납니다.</div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ===== Mockup notes ===== -->
+  <section class="card notes" aria-label="목업 메모">
+    <h2>데이터 수집 현황 (2026.08.28)</h2>
+    <div class="leg">
+      <span><span class="chip dart">공시</span> DART 접수 건 (링크)</span>
+      <span><span class="chip ref">실제</span> 8/28 수집한 시장·보도 데이터</span>
+      <span><span class="chip ex">예시</span> 아직 가상 수치</span>
+      <span><span class="chip na">미수집</span> 접근 차단 또는 소스 없음 — 입력 필요</span>
+    </div>
+    <ol>
+      <li><b>가져온 것:</b> 4개사 종가·시총·PER·배당수익률(Google Finance·AlphaSquare·WiseReport) + 20거래일 일별 종가(StockAnalysis), USD/KRW·국고채 3년·코스피, 8월 CP(가스신문)·나프타(TradingEconomics)·WTI(참고), 4개사 DART 공시 목록(RSS)·반기보고서, <b>4개사 반기 누적 손익(매출·영업이익·세전이익·순이익)과 신용등급 — DART 반기보고서 뷰어 직접 파싱</b>, 3개 멤버사 2Q 실적(보도), 관련 기사.</li>
+      <li><b>종토방:</b> <b>네이버 종목토론실 실제 게시글 239건</b>(회사당 60건, 화면에는 최신 15건씩)을 성욱님 PC의 수집기(run_board_crawler.bat)로 8/31 09:26에 가져와 반영했습니다. 작업 스케줄러에 1시간 반복으로 등록하면 자동 갱신됩니다. 감성은 키워드 자동 분류라 중립이 과다 — LLM 분류로 교체 권장.</li>
+      <li><b>못 가져온 것:</b> 네이버 종토방(확장 정책 차단), 9월 CP(8/31 발표 예정), NAV 산출용 자회사 지분가치 시가, 연간 목표 달성률(내부 데이터), SK케미칼 당일 +8.5% 급등 사유 기사.</li>
+      <li><b>실서비스 권장 소스:</b> DART 뷰어 파싱(이번에 검증) 또는 OpenAPI, StockAnalysis/KRX(주가 시계열), 한국은행 ECOS API(환율·금리), 가스신문·TradingEconomics(CP·나프타), 사내 종토방 크롤러 + LLM 감성분류.</li>
+      <li>SK디스커버리 시총 8,759억은 WiseReport 보통주 수 기준 추정(Google Finance는 9,232억 표기 — 우선주 포함 여부 차이로 추정). 확인 필요.</li>
+    </ol>
+  </section>
+</div>
+
+<div class="tip" id="tip" role="tooltip"></div>
+
+<script>
+(function(){
+  // ---------- data ----------
+  // status: dart=공시, ref=참고, ex=예시
+  const KOSPI_S = [6358.95,6598.26,6296.38,6258.77,6299.66,6345.53,6579.04,6813.34,6977.94,6869.83,6471.17,6852.58,6912.95,6696.96,6742.74,6808.21,6912.37,6788.88,6820.02,6835.80,6562.72];
+  const FX_S = [1427.11,1423.72,1423.57,1415.95,1416.62,1412.17,1417.13,1420.29,1411.27,1411.91,1410.07,1391.48,1396.35,1384.23,1384.26,1383.07,1383.49,1380.38,1374.55,1367.62,1372.30,1366.62];
+  const FXDAYS = ['8.4','8.5','8.6','8.7','8.10','8.11','8.12','8.13','8.14','8.17','8.18','8.19','8.20','8.21','8.24','8.25','8.26','8.27','8.28','8.31','9.1','9.2'];
+  const TDAYS = ['8.4','8.5','8.6','8.7','8.10','8.11','8.12','8.13','8.14','8.18','8.19','8.20','8.21','8.24','8.25','8.26','8.27','8.28','8.31','9.1','9.2'];
+  const cos = [
+    { key:'skd', name:'SK디스커버리', code:'006120', holding:true, price:54900, chg:2000, pct:3.78, status:'ref', mcap:'8,759억', dy:'3.98%', color:'var(--s1)',
+      spark:[52300,54800,54300,53300,52600,53700,52600,51900,52700,53700,52100,51200,51200,51000,51300,51300,49350,50300,51000,52900,54900], sparkNote:'8.4~9.2 종가 21일', sparkDates:TDAYS },
+    { key:'skc', name:'SK케미칼', code:'285130', price:52200, chg:-1900, pct:-3.51, status:'ref', mcap:'9,375억', dy:'1.76%', color:'var(--s2)',
+      spark:[42400,41900,42700,43650,44200,44900,43750,43850,50000,47950,48000,49000,49600,49800,50000,52000,49950,54200,53200,54100,52200], sparkNote:'8.4~9.2 종가 21일', sparkDates:TDAYS },
+    { key:'skg', name:'SK가스', code:'018670', price:230000, chg:-5000, pct:-2.13, status:'ref', mcap:'2.13조', dy:'3.91%', color:'var(--s3)',
+      spark:[213500,213500,220000,228000,230000,238500,231000,228000,244000,242000,239500,229500,233500,234000,236000,236000,230500,230000,228000,235000,230000], sparkNote:'8.4~9.2 종가 21일', sparkDates:TDAYS },
+    { key:'skb', name:'SK바이오사이언스', code:'302440', price:37450, chg:-900, pct:-2.35, status:'ref', mcap:'3.06조', dy:'—', color:'var(--s4)',
+      spark:[34650,34600,35900,36850,37250,37500,36500,36850,37650,36500,35800,37750,36500,38300,37550,38100,38450,38950,38400,38350,37450], sparkNote:'8.4~9.2 종가 21일', sparkDates:TDAYS },
+  ];
+
+  // 2Q26 results, 억원. null = 미확인
+  const res = [
+    { name:'SK디스커버리', basis:'연결', rev:63448, revYoy:29.4, op:1594, opYoy:-19.8, pbt:2400, pbtYoy:114.9, ni:1537, note:'2Q 연결은 영업손실 304억(SK가스 반영) — 1Q 일회성 이익 덕에 누적 세전은 두 배', status:'dart', color:'var(--s1)' },
+    { name:'SK디스커버리', basis:'별도', rev:519, revYoy:9.1, op:439, opYoy:6.9, pbt:276, pbtYoy:50.3, ni:273, note:'자회사 배당수익 중심 — 연간 목표 달성률의 분모', status:'dart', color:'var(--s1)', sub:true },
+    { name:'SK케미칼', basis:'별도', rev:8649, revYoy:18.3, op:531, opYoy:-14.5, pbt:3318, pbtYoy:515.6, ni:2474, note:'2Q 매출 분기 최대(4,791억) · 세전에 영업외 대규모 이익 포함(주석 확인 필요)', status:'dart', color:'var(--s2)' },
+    { name:'SK케미칼', basis:'연결', rev:14010, revYoy:23.6, op:135, opYoy:-42.3, pbt:-107, pbtYoy:'적자전환', ni:null, note:'SK바이오사이언스 연결 손실 반영', status:'dart', color:'var(--s2)', sub:true },
+    { name:'SK가스', basis:'연결', rev:49483, revYoy:33.5, op:1837, opYoy:-21.3, pbt:3155, pbtYoy:81.3, ni:2343, note:'2Q 영업적자(-439억)에도 울산GPS 매각 관련 이익으로 누적 세전 급증', status:'dart', color:'var(--s3)' },
+    { name:'SK바이오사이언스', basis:'연결', rev:3243, revYoy:2.5, op:-603, opYoy:'적자확대', pbt:-643, pbtYoy:'적자확대', ni:-503, note:'2Q만 보면 적자 축소(-374억→-157억), IDT 개선', status:'dart', color:'var(--s4)' },
+  ];
+
+  const fmt = n => n==null ? '—' : n.toLocaleString('ko-KR');
+  const chipHtml = s => s==='dart' ? '<span class="chip dart">공시</span>' : s==='ref' ? '<span class="chip ref">실제</span>' : s==='na' ? '<span class="chip na">미수집</span>' : '<span class="chip ex">예시</span>';
+
+  // ---------- sparkline ----------
+  function spark(vals, color, id){
+    const w=200, h=40, p=3;
+    const min=Math.min(...vals), max=Math.max(...vals), rng=(max-min)||1;
+    const pts = vals.map((v,i)=>[p + i*(w-2*p)/(vals.length-1), h-p-(v-min)/rng*(h-2*p)]);
+    const d = pts.map((q,i)=>(i?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1)).join(' ');
+    const area = d + ` L${pts[pts.length-1][0].toFixed(1)} ${h} L${pts[0][0].toFixed(1)} ${h} Z`;
+    const last = pts[pts.length-1];
+    return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true">
+      <defs><linearGradient id="g${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${color}" stop-opacity=".22"/><stop offset="1" stop-color="${color}" stop-opacity="0"/></linearGradient></defs>
+      <path d="${area}" fill="url(#g${id})"/>
+      <path d="${d}" fill="none" stroke="${color}" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>
+      <circle cx="${last[0].toFixed(1)}" cy="${last[1].toFixed(1)}" r="3.5" fill="${color}" stroke="var(--surface)" stroke-width="2" vector-effect="non-scaling-stroke"/>
+    </svg>`;
+  }
+
+  // ---------- tickers ----------
+  document.getElementById('tickers').innerHTML = cos.map((c,i)=>{
+    const dir = c.chg>0?'up':c.chg<0?'down':'flat';
+    const arrow = c.chg>0?'▲':c.chg<0?'▼':'—';
+    return `<article class="card tk ${c.holding?'holding':''}">
+      <div class="name"><span><span class="sw" style="display:inline-block;width:8px;height:8px;border-radius:2px;background:${c.color};margin-right:7px;vertical-align:1px"></span>${c.name}</span><span class="code">${c.code} ${chipHtml(c.status)}</span></div>
+      <div class="price num">${fmt(c.price)}<small>원</small></div>
+      <div class="chg ${dir} num"><span>${arrow} ${fmt(Math.abs(c.chg))}</span><span class="pill">${c.pct>0?'+':''}${c.pct.toFixed(2)}%</span></div>
+      <div class="spark" data-spark="${c.key}">${c.spark?spark(c.spark, c.color, i):'<div style="height:100%;display:grid;place-items:center;font-size:11px;color:var(--ink-3);border:1px dashed var(--line-2);border-radius:6px;margin:0 4px">일별 시계열 미수집</div>'}</div>
+      ${c.spark?`<div class="sparkdates"><span>${c.sparkDates[0]}</span><span style="color:var(--line-2)">·</span><span>${c.sparkDates[c.sparkDates.length-1]}</span></div>`:''}
+      <div class="foot"><span>시총 <b class="num">${c.mcap}</b></span><span>배당수익률 <b class="num">${c.dy}</b></span></div>
+    </article>`;
+  }).join('');
+
+  // market-var sparklines
+  document.querySelectorAll('[data-spark="fx"]').forEach(el=>el.innerHTML=spark(FX_S,'var(--s1)','fx'));
+  document.querySelectorAll('[data-spark="kospi"]').forEach(el=>el.innerHTML=spark(KOSPI_S,'var(--s3)','kospi'));
+
+  // ---------- market variables (일별/월별 시계열) ----------
+  const MKT = [
+    { key:'wti', name:'WTI (달러/배럴)', color:'var(--s3)', unit:'달러', dec:1,
+      days:['7.31','8.03','8.04','8.05','8.06','8.07','8.10','8.11','8.12','8.13','8.14','8.17','8.18','8.19','8.20','8.21','8.24','8.25','8.26','8.27','8.28','8.31','9.01','9.02'],
+      s:[84.7,80.3,75.8,75.2,77.3,78.2,82.1,83.2,83.3,81.3,82.4,84.5,84.1,84.4,86.8,87.1,85.0,82.4,82.2,83.5,83.4,85.8,90.2,90.7],
+      why:'SK가스 발전 마진 · TradingEconomics 종가 기준' },
+    { key:'cp', name:'사우디 CP 프로판 (달러/톤)', color:'var(--s2)', unit:'달러', dec:0, monthly:true,
+      days:['1월','2월','3월','4월','5월','6월','7월','8월'],
+      s:[525,545,545,750,750,760,580,620],
+      why:'SK가스 LPG 스프레드 · 월별 계약가 · 9월 CP 미발표(9/2 확인)' },
+    { key:'nap', name:'나프타 (달러/톤)', color:'var(--s1)', unit:'달러', dec:1,
+      days:['7.29','7.30','7.31','8.03','8.04','8.05','8.06','8.07','8.10','8.11','8.12','8.13','8.14','8.17','8.18','8.19','8.20','8.21','8.24','8.25','8.26','8.27','8.28','8.31'],
+      s:[782.3,767.1,778.4,732.5,683.2,668.8,702.7,717.1,747.2,743.2,731.6,726.9,741.7,749.0,751.7,752.5,755.6,757.2,748.5,743.7,744.4,745.5,738.9,761.8],
+      why:'SK케미칼 원재료 · TradingEconomics · 연 +33%' },
+    { key:'ktb', name:'국고채 3년 (%)', color:'var(--s4)', unit:'%', dec:3, bp:true,
+      days:['8.05','8.06','8.07','8.10','8.11','8.12','8.13','8.14','8.18','8.19','8.20','8.21','8.24','8.25','8.26','8.27','8.28','8.31','9.01','9.02'],
+      s:[3.665,3.747,3.751,3.776,3.802,3.780,3.780,3.769,3.841,3.786,3.822,3.853,3.836,3.827,3.817,3.754,3.798,3.837,3.874,3.917],
+      why:'조달금리 · 기준금리 3.00% 인상(8/27) · Investing.com' },
+  ];
+  document.getElementById('mktvars').innerHTML = MKT.map((m,i)=>{
+    const last=m.s[m.s.length-1], prev=m.s[m.s.length-2];
+    const d=last-prev, up=d>0, flat=Math.abs(d)<1e-9;
+    const chg = m.bp ? (Math.abs(d)*100).toFixed(1)+'bp' : m.monthly ? Math.abs(d).toFixed(0)+' ('+m.days[m.days.length-1]+')' : Math.abs(d/prev*100).toFixed(2)+'%';
+    return `<div class="mvg">
+      <div class="h"><span class="k">${m.name} <span class="chip ref">실제</span></span>
+      <span class="v num">${last.toLocaleString('ko-KR',{minimumFractionDigits:m.dec===3?3:m.dec,maximumFractionDigits:m.dec})}<span class="${flat?'':up?'up':'down'}">${flat?'—':(up?'▲':'▼')+' '+chg}</span></span></div>
+      <div class="spark" data-spark="${m.key}">${spark(m.s, m.color, 'mv'+i)}</div>
+      <div class="sparkdates"><span>${m.days[0]}</span><span style="color:var(--line-2)">마우스로 ${m.monthly?'월별':'일별'} 조회</span><span>${m.days[m.days.length-1]}</span></div>
+      <div class="why">${m.why}</div>
+    </div>`;
+  }).join('');
+
+  // ---------- results table ----------
+
+  const yoy = v => v==null ? '' : typeof v==='string' ? `<span class="yoy ${(v.includes('축소')||v.includes('흑자'))?'':'down'}">${v}</span>` : `<span class="yoy ${v>0?'up':'down'}">${v>0?'+':''}${v.toFixed(1)}%</span>`;
+  const num2 = v => v==null ? '—' : (v<0 ? '△'+fmt(-v) : fmt(v));
+  const cell = (v,y) => `<td class="num"><span class="${v!=null&&v<0?'neg':''}">${num2(v)}</span>${yoy(y)}</td>`;
+  document.getElementById('res').innerHTML = `<div class="tbl-wrap"><table class="res">
+    <thead><tr><th>회사</th><th>매출</th><th>영업이익</th><th>세전이익</th><th>순이익</th><th style="text-align:left">비고</th></tr></thead>
+    <tbody>${res.map(r=>`<tr class="${r.sub?'sub':''}">
+      <td>${r.sub?'└ ':`<span class="sw" style="background:${r.color}"></span>`}${r.name}<span class="basis">${r.basis}</span> ${chipHtml(r.status)}</td>
+      ${cell(r.rev,r.revYoy)}${cell(r.op,r.opYoy)}${cell(r.pbt,r.pbtYoy)}${cell(r.ni,null)}
+      <td class="note">${r.note}</td>
+    </tr>`).join('')}</tbody>
+  </table></div>`;
+
+  // ---------- broker & rating reports ----------
+  const RPT = [
+    { co:'SK디스커버리', code:'006120', tp:null, opTxt:null, rows:[], note:'최근 3개월 제시된 증권사 의견 없음 — 지주사 커버리지 공백 자체가 저평가 요인' },
+    { co:'SK케미칼', code:'285130', tp:74000, opTxt:'매수', rows:[ {b:'삼성증권',d:'8.14',t:68000,o:'BUY',x:'목표가 80,000→68,000 하향(-15%)'}, {b:'DB증권',d:'7.20',t:80000,o:'Buy',x:''} ], note:'' },
+    { co:'SK가스', code:'018670', tp:347500, opTxt:'매수', rows:[ {b:'하나증권',d:'8.06',t:365000,o:'BUY',x:''}, {b:'iM증권',d:'8.06',t:330000,o:'Buy',x:''} ], note:'DS투자 5/21 "실적 대비 과도한 하락" 코멘트' },
+    { co:'SK바이오사이언스', code:'302440', tp:40000, opTxt:'중립', rows:[ {b:'신영증권',d:'8.11',t:40000,o:'중립',x:''}, {b:'한국투자증권',d:'8.11',t:null,o:'중립',x:''} ], note:'' },
+  ];
+  const CRD = [
+    { co:'SK디스커버리', kiscd:'320706', bond:'A+', out:'안정적', cp:'A2+', d:'26.6.29',
+      rs:[ {t:'Special Report — 일단락된 SK그룹 사업포트폴리오 재편, 가시적인 성과와 추가적인 과제', d:'25.09.29'} ] },
+    { co:'SK케미칼', kiscd:'IW7328', bond:'A+', out:'안정적', cp:null, d:'26.4.29',
+      rs:[ {t:'Issuer Comment — 여수 석유화학단지 사업재편 계획 승인 심사 신청, 각 사 재무구조 영향 점검', d:'26.03.20'} ] },
+    { co:'SK가스', kiscd:'400122', bond:'AA-', out:'안정적', cp:'A1', d:'26.6.23',
+      rs:[ {t:'Issuer Comment — SK가스의 SK어드밴스드 흡수합병 관련 한신평의 의견', d:'26.08.27'}, {t:'Issuer Comment — 울산GPS·SK멀티유틸리티 소수지분 양도 결정에 대한 의견', d:'26.04.06'} ] },
+    { co:'SK그룹 공통', kiscd:null, url:'https://www.kisrating.com/research/group_report.do', bond:null,
+      rs:[ {t:'그룹분석 보고서 — 반도체가 견인한 SK그룹, 배터리/화학 부진과 부채성 자본조달은 여전한 과제', d:'26.05.08'} ] },
+    { co:'SK바이오사이언스 · SK플라즈마', kiscd:null, bond:null, note:'한신평 공모 신용등급 없음 (SK바사: 사실상 무차입 · SK플라즈마: 비상장)' },
+  ];
+  const coPrice = n => { const c=cos.find(c=>c.name===n); return c?c.price:null; };
+  const rptUrl = code => 'https://finance.naver.com/research/company_list.naver?searchType=itemCode&itemCode='+code;
+  document.getElementById('broker').innerHTML = RPT.map(r=>{
+    const p=coPrice(r.co); const up = (r.tp&&p)? (r.tp/p-1)*100 : null;
+    const head = `<div class="h"><a class="k" href="https://comp.wisereport.co.kr/company/c1010001.aspx?cmp_cd=${r.code}" target="_blank" rel="noopener">${r.co} ›</a>
+      ${r.tp?`<span class="v num">목표 ${r.tp.toLocaleString('ko-KR')}원 <span class="${up>=0?'up':'down'}">${r.opTxt} · 상승여력 ${up>=0?'+':''}${up.toFixed(0)}%</span></span>`:`<span class="v" style="font-size:12.5px;color:var(--ink-3);font-weight:500">컨센서스 없음</span>`}</div>`;
+    const newsQ = w => 'https://search.daum.net/search?w=news&sort=recency&q='+encodeURIComponent(r.co+' '+w.b+' 목표주가');
+    const rows = r.rows.map(w=>`<a class="rrow rlink" href="${newsQ(w)}" target="_blank" rel="noopener" title="${r.co} ${w.b} 리포트 관련 기사 검색"><span>${w.b} <small>${w.d}</small></span><span class="num">${w.t?w.t.toLocaleString('ko-KR')+'원':'—'} · ${w.o}${w.x?` <small class="down">${w.x}</small>`:''} <small>› 관련 기사</small></span></a>`).join('');
+    const pdfAll = `<div class="why"><a href="${rptUrl(r.code)}" target="_blank" rel="noopener" style="color:var(--ink-3)">무료 공개 리포트 원문 목록 (네이버 리서치) ›</a></div>`;
+    return `<div class="mvg">${head}${rows}${r.rows.length?pdfAll:''}${r.note?`<div class="why">${r.note}</div>`:''}</div>`;
+  }).join('') + `<div class="why" style="margin-top:8px">표의 목표주가·의견은 FnGuide가 전 증권사 추정치를 집계한 것으로, 원문 PDF를 무료 게재하지 않는 리포트(최근 대형 증권사 다수)도 포함됩니다. 무료 원문은 네이버 리서치에 증권사가 직접 올린 것만 보이며, 최신 리포트의 요지는 각 행의 '관련 기사'로 확인하세요.</div>`;
+  document.getElementById('rating').innerHTML = CRD.map(c=>{
+    const url = c.url || (c.kiscd?`https://www.kisrating.com/ratingsSearch/corp_overview.do?kiscd=${c.kiscd}`:null);
+    const head = `<div class="h">${url?`<a class="k" href="${url}" target="_blank" rel="noopener">${c.co} ›</a>`:`<span class="k">${c.co}</span>`}
+      ${c.bond?`<span class="v num">${c.bond} <span style="color:var(--ink-3)">${c.out}${c.cp?` · CP ${c.cp}`:''} · ${c.d}</span></span>`:''}</div>`;
+    const rs = (c.rs||[]).map(x=>`<div class="rrow"><span style="min-width:0">${x.t}</span><small style="white-space:nowrap">${x.d}</small></div>`).join('');
+    return `<div class="mvg">${head}${rs}${c.note?`<div class="why">${c.note}</div>`:''}</div>`;
+  }).join('');
+
+  // ---------- news (실제 보도) + quotes (예시) ----------
+
+  const newsByCo = {
+    'SK디스커버리': [
+      { color:'var(--s1)', date:'09.02', src:'이데일리', tag:'pos', tagTxt:'매각 종결', t:'"대기업 팔고, PE는 사고"…AI 타고 에너지·인프라에 돈 몰린다', url:'https://v.daum.net/v/20260902054353701', why:'KKR이 SK디스커버리·한앤코 보유 SK이터닉스 지분 43.1% 인수를 완료(계약 당시 총액 3,479억) — 매각대금 유입 확정.' },
+      { color:'var(--s1)', date:'08.30', src:'다음뉴스', tag:'', tagTxt:'그룹 재편', t:'SK 리밸런싱 속도…미래사업에 힘 싣는다', url:'https://v.daum.net/v/20260830171503838', why:'그룹 전반의 흡수합병·재편 흐름 — SK가스-어드밴스드 합병도 같은 맥락.' },
+      { color:'var(--s1)', date:'08.27', src:'데일리연합', tag:'', tagTxt:'지배구조', t:'SK디스커버리, 자회사 합병과 대규모 투자 유출…사업 재편 속 자산 평가 쟁점 부각', url:'https://www.dailyan.com/news/article.html?no=776668', why:'2025년 투자활동 현금유출 1조4,389억(전년의 4배). SK플라즈마·라이프사이언스 손상평가가 핵심감사사항.' },
+      { color:'var(--s1)', date:'08.27', src:'파이낸셜뉴스', tag:'', tagTxt:'금리', t:'기준금리 3%로 올렸는데 국고채 금리는 전구간 하락… 왜?', url:'https://www.fnnews.com/news/202608271635254071', why:'한은 연속 인상에도 3년물 3.755%(-6.1bp) — 지주사 조달금리·배당 매력도에 중립~긍정.' },
+      { color:'var(--s1)', date:'08.20', src:'뉴스토마토', tag:'neg', tagTxt:'신용', t:'(크레딧시그널) SK이터닉스, 인수 후 신용등급 하락…사라진 \'SK 우산\'', url:'https://v.daum.net/v/20260820163630940', why:'우리가 매각한 SK이터닉스의 후일담 — 계열 이탈 시 신용도 변화 사례로 참고.' },
+      { color:'var(--s1)', date:'08.20', src:'다음뉴스', tag:'', tagTxt:'그룹', t:'"단단한 기초체력" 자신한 최태원…SK, 종속사 110곳 덜어냈다', url:'https://v.daum.net/v/20260820123605539', why:'그룹 차원의 계열 정리 기조 — 디스커버리 계열 재편의 배경.' },
+      { color:'var(--s1)', date:'08.13', src:'다음뉴스', tag:'', tagTxt:'보수 공시', t:'최창원 부회장, SK디스커버리·SK가스 상반기 보수 24억…"작년 성과에 소폭 증가"', url:'https://v.daum.net/v/20260813180452414', why:'반기보고서 임원 보수 공시발 기사.' },
+    ],
+    'SK케미칼': [
+      { color:'var(--s2)', date:'08.31', src:'이데일리', tag:'neg', tagTxt:'리스크', t:'가습기살균제, 학업도 취업도 앗아갔다…"시행령엔 없는 얘기"(종합)', url:'https://v.daum.net/v/20260831185551880', why:'피해구제 분담금 시행령 논의에서 원료물질 제조사 책임 거론 — 충당부채·평판 리스크 체크포인트.' },
+      { color:'var(--s2)', date:'08.29', src:'서울경제', tag:'pos', tagTxt:'리스크 해소', t:"'안전망 방치'는 실형, '돌발 사고'는 무죄…대법원 중대재해법 처벌 기준 보니", url:'https://v.daum.net/v/20260829193131395', why:'자회사 SKMU 대표의 중대재해법 무죄 확정 — 계열 법률 리스크 하나 해소.' },
+      { color:'var(--s2)', date:'08.25', src:'다음뉴스', tag:'pos', tagTxt:'신사업', t:'SK케미칼, 스페셜티 소재 \'스카이펠\' 침구 적용 확대', url:'https://v.daum.net/v/20260825153353198', why:'올레핀 대체 소재의 응용처 확장(베개→방석·매트리스).' },
+      { color:'var(--s2)', date:'08.18', src:'다음뉴스', tag:'pos', tagTxt:'실적', t:'SK케미칼, 2분기 영업익 319억원…전년比 27%↑', url:'https://v.daum.net/v/20260818085940499', why:'별도 기준 2Q 확정 실적 보도.' },
+      { color:'var(--s2)', date:'08.14', src:'이투데이', tag:'pos', tagTxt:'특징주', t:'[특징주] SK케미칼, 분기 최대 매출·저평가 매력 부각에 11%대 급등', url:'https://www.etoday.co.kr/news/view/2614524', why:'삼성증권 Top-pick 유지, 3Q 영업이익 컨센서스 19% 상회 전망.' },
+      { color:'var(--s2)', date:'08.13', src:'머니투데이', tag:'pos', tagTxt:'실적', t:'SK케미칼, 2분기 최대매출… 영업익도 전년비 26.8%↑', url:'https://www.mt.co.kr/industry/2026/08/13/2026081316140656631', why:'별도 매출 4,791억 — 2017년 분할 이후 분기 최대.' },
+      { color:'var(--s2)', date:'06.10', src:'뉴스핌', tag:'pos', tagTxt:'리포트', t:'"SK케미칼, 주가 급락 기회로 삼아야…목표가 8만원"', url:'https://www.newspim.com/news/view/20260610000117', why:'증권가 목표주가 논리의 출발점.' },
+    ],
+    'SK가스': [
+      { color:'var(--s3)', date:'09.02', src:'디지털타임스', tag:'neg', tagTxt:'비용', t:'SK가스, \'73억원\' 내고 파나마운하 통과', url:'https://v.daum.net/v/20260902093409248', why:'G.스피릿호가 9/1 사상 최고 급행료 530만달러(약 73억)를 내고 통과 — 미국산 LPG 도입 원가 부담이 실제 집행으로 확정.' },
+      { color:'var(--s3)', date:'09.02', src:'비즈워치', tag:'', tagTxt:'그룹 재편', t:'[인사이드 스토리]팔 건 팔고, 합칠 건 합친다…SK 리밸런싱 막바지', url:'https://v.daum.net/v/20260902101507752', why:'SK가스–SK어드밴스드 합병을 포함한 그룹 리밸런싱이 마무리 국면 — 재편 이후 체제가 밸류에이션 변수.' },
+      { color:'var(--s3)', date:'09.02', src:'다음뉴스', tag:'pos', tagTxt:'배당', t:'KB證 "주주환원이 주가 올리려면… 어려울 때도 주주 우선하는 신뢰 증명해야"', url:'https://v.daum.net/v/20260902084637051', why:'10년 이상 DPS를 줄이지 않은 배당 성장 대표 종목으로 SK가스 지목 — 배당 신뢰가 프리미엄 근거.' },
+      { color:'var(--s3)', date:'09.01', src:'울산매일UTV', tag:'', tagTxt:'합병 일정', t:'SK가스, SK어드밴스드 11월 흡수합병…울산 PDH 독자경영 전환', url:'https://v.daum.net/v/20260901162009', why:'합병기일 11월 4일 확정 — 울산 PDH를 본체 직영 체제로 전환.' },
+      { color:'var(--s3)', date:'09.01', src:'뉴스1', tag:'pos', tagTxt:'가격 정책', t:'E1·SK가스, 9월 LPG 국내 공급가 동결…상업용 프로판 ㎏당 1483.17원', url:'https://v.daum.net/v/20260901092755', why:'8월 CP 하락에도 공급가 동결 — 누적 원가 부담 회수 국면, 하반기 LPG 마진에 긍정적.' },
+      { color:'var(--s3)', date:'08.31', src:'파이낸셜뉴스', tag:'neg', tagTxt:'재무', t:'\'수천억 차입금\' SK어드밴스드, 하반기 수익성 저하 어쩌나', url:'https://v.daum.net/v/20260831140610783', why:'합병으로 떠안는 차입금·수익성 이슈 — 합병 후 재무 통합의 핵심 체크포인트.' },
+      { color:'var(--s3)', date:'08.31', src:'대한경제', tag:'', tagTxt:'그룹 재편', t:'[재계는 지금] 쪼개고 뭉치고…SK \'리밸런싱\' 핵심은 \'AI 집결·중복 정돈\'', url:'https://v.daum.net/v/20260831052011095', why:'에코플랜트·가스·이노베이션이 사흘 간격 흡수합병 — 그룹 재편 속 우리 위치.' },
+      { color:'var(--s3)', date:'08.30', src:'아시아경제', tag:'neg', tagTxt:'비용', t:'파나마운하 혼잡 최고조…SK가스, 통과 급행료 사상 최고 530만달러 지불', url:'https://v.daum.net/v/20260830100149650', why:'9/1 통과 급행료 약 73억원(전년 대비 16배) — 미국산 LPG 도입 원가 부담.' },
+    ],
+    'SK바이오사이언스': [
+      { color:'var(--s4)', date:'09.01', src:'조선비즈', tag:'', tagTxt:'백신 수급', t:'[단독] 독감백신 NIP 차질…사노피 50만도즈 펑크에 민간 물량 전환', url:'https://v.daum.net/v/20260901060259076', why:'우리 NIP 물량 270만도즈는 계획대로 유지 — 경쟁사 공급 차질은 독감 시즌 민간 시장에서 반사 기회 가능성.' },
+      { color:'var(--s4)', date:'08.28', src:'다음뉴스', tag:'', tagTxt:'R&D', t:'K-바이오 mRNA 걸음마 단계…예산·인프라 부족 [차세대 암백신 과제는 ②]', url:'https://v.daum.net/v/20260828173801719', why:'mRNA 플랫폼 국내 현주소 — 우리 파이프라인의 정책 환경.' },
+      { color:'var(--s4)', date:'08.28', src:'다음뉴스', tag:'pos', tagTxt:'전략', t:'SK바이오사이언스, 성공의 다음 단계로 \'성장의 선순환\' 이어간다', url:'https://v.daum.net/v/20260828170042502', why:'백신-CDMO-신규 모달리티로 이어지는 성장 전략 정리.' },
+      { color:'var(--s4)', date:'08.27', src:'다음뉴스', tag:'neg', tagTxt:'파이프라인', t:'[단독] SK바이오사이언스, 면역증강제 독감백신 시험계획 자진 취하', url:'https://v.daum.net/v/20260827142801673', why:'파이프라인 조정 — 선택과 집중 신호이나 단기적으론 부정 뉴스.' },
+      { color:'var(--s4)', date:'08.26', src:'머니투데이', tag:'pos', tagTxt:'자금·임상', t:'SK바이오사이언스, 완주로 \'K-백신\' 가능성 증명한다', url:'https://www.mt.co.kr/thebio/2026/08/26/2026082616580127418', why:'GBP410 글로벌 3상 진행, 국민성장펀드 3,000억 초저리 확보.' },
+      { color:'var(--s4)', date:'08.25', src:'다음뉴스', tag:'pos', tagTxt:'그룹', t:'SK그룹 바이오 3총사 \'미래 먹거리\'에서 성장축으로', url:'https://v.daum.net/v/20260825160328894', why:'그룹 차원에서 바이오가 성장축으로 격상 — 바사의 위상 변화.' },
+      { color:'var(--s4)', date:'08.16', src:'다음뉴스', tag:'', tagTxt:'주가', t:'주가 36만→3만원대…SK바사, \'21가 폐렴 백신\'으로 반등 노린다', url:'https://v.daum.net/v/20260816173012936', why:'상장 후 주가 궤적과 GBP410 반등 논리를 정리한 기사 — 종토방 정서의 배경.' },
+      { color:'var(--s4)', date:'08.19', src:'아시아타임즈', tag:'pos', tagTxt:'호재', t:'SK바이오사이언스, GBP410 개발 \'순항\'… 백신·CDMO 성장축 강화', url:'https://www.asiatime.co.kr/article/20260819500347', why:'21가 폐렴구균 백신은 재평가의 분수령.' },
+    ],
+    'SK플라즈마': [
+      { color:'var(--s5)', date:'09.01', src:'아시아경제', tag:'pos', tagTxt:'신제품', t:'SK플라즈마, 복약 편의성 개선한 고용량 저혈소판치료제 출시', url:'https://view.asiae.co.kr/article/2026090109104131482', why:'레볼팍(엘트롬보팍) 75mg 고용량 추가 — 하루 2정→1정, 8월 출시 제품의 라인업 확장.' },
+      { color:'var(--s5)', date:'08.13', src:'다음뉴스', tag:'', tagTxt:'전략 비교', t:'혈액제제 해외 전략…SK플라즈마 \'기술이전\' vs GC녹십자 \'美 공략\'', url:'https://v.daum.net/v/20260813180034175', why:'기술이전 모델과 경쟁사 직접진출 모델의 비교 — 우리 전략의 위치.' },
+      { color:'var(--s5)', date:'08.03', src:'다음뉴스', tag:'pos', tagTxt:'신제품', t:'SK플라즈마, 저혈소판증 치료제 \'레볼팍\' 국내 출시', url:'https://v.daum.net/v/20260803153431408', why:'혈액질환 치료제 포트폴리오 확대.' },
+      { color:'var(--s5)', date:'06.15', src:'메디포뉴스', tag:'pos', tagTxt:'글로벌 확장', t:'SK플라즈마, 튀르키예에 60만L 규모 생산시설 착공', url:'https://www.medifonews.com/news/article.html?no=214301', why:'약 5억유로(9,000억) 혈장분획 공장 — 2028년 완공 목표.' },
+    ],
+  };
+  const news = Object.entries(newsByCo).flatMap(([co,list])=>list.map(n=>({...n, co}))).sort((a,b)=> (b.date>a.date)-(a.date>b.date) ).slice(0,14);
+
+  const newsRender = list => list.map(n=>`<div class="n">
+    <span class="sw" style="background:${n.color}"></span>
+    <div>
+      <div class="t"><a href="${n.url}" target="_blank" rel="noopener">${n.t}</a></div>
+      <div class="m"><span class="co">${n.co||''}</span><span>${n.src} · ${n.date}</span>${n.tagTxt?`<span class="tag ${n.tag}">${n.tagTxt}</span>`:''}</div>
+      <div class="why">${n.why}</div>
+    </div>
+  </div>`).join('');
+  const ntabs = document.getElementById('ntabs');
+  const newsCos = ['전체'].concat(Object.keys(newsByCo));
+  function showNews(co){
+    ntabs.querySelectorAll('button').forEach(b=>b.setAttribute('aria-selected', b.dataset.n===co));
+    document.getElementById('news').innerHTML = co==='전체' ? newsRender(news) : newsRender(newsByCo[co].map(n=>({...n, co})));
+  }
+  ntabs.innerHTML = newsCos.map(n=>`<button type="button" role="tab" data-n="${n}" aria-selected="false">${n==='전체'?'전체':`<span class="sw" style="background:${newsByCo[n][0].color}"></span>`+n.replace('SK바이오사이언스','SK바사')}</button>`).join('');
+  ntabs.addEventListener('click', e=>{ const b=e.target.closest('button'); if(b) showNews(b.dataset.n); });
+  showNews('전체');
+
+
+
+
+  // ---------- disclosures (DART) ----------
+  const disc = {
+    'SK디스커버리': { color:'var(--s1)', items:[
+      { d:'08.28', k:'기타', t:'대규모기업집단현황공시 [분기별공시(개별회사용)]', x:'공정거래법상 분기 공시', url:'https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260828001754', real:true },
+      { d:'08.28', k:'수시', t:'[기재정정] 단일판매·공급계약체결 (자회사의 주요경영사항)', x:'자회사 계약 정정 — 상세는 원문 확인', url:'https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260828800631', real:true, major:true },
+      { d:'08.27', k:'주요', t:'[첨부정정] 주요사항보고서(회사합병결정) (자회사의 주요경영사항)', x:'SK가스–SK어드밴스드 합병 첨부 정정', url:'https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260827800238', real:true },
+      { d:'08.26', k:'수시', t:'투자판단관련주요경영사항 (자회사의 주요경영사항)', x:'자회사 투자판단 관련 공시', url:'https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260826800768', real:true },
+      { d:'08.26', k:'주요', t:'주요사항보고서(회사합병결정) (자회사의 주요경영사항)', x:'SK가스, SK어드밴스드 흡수합병 결정', url:'https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260826800605', real:true, major:true },
+      { d:'08.13', k:'정기', t:'반기보고서 (2026.06)', x:'별도·연결 반기 재무제표 — 요약재무 수치 대시보드 입력 필요', url:'https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260813001756', real:true },
+      { d:'01.30', k:'발행', t:'증권신고서 (채무증권)', x:'공모 회사채 발행', url:'https://englishdart.fss.or.kr/dsbh001/main.do?rcpNo=20260130000592', real:true },
+    ]},
+    'SK케미칼': { color:'var(--s2)', items:[
+      { d:'08.28', k:'기타', t:'대규모기업집단현황공시 [분기별공시(개별회사용)]', x:'공정거래법상 분기 공시', url:'https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260828000670', real:true },
+      { d:'08.13', k:'정기', t:'반기보고서 (2026.06)', x:'연결 매출 7,451억 · 영업이익 323억 (보도 기준)', url:'https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260813001371', real:true },
+      { d:'08.13', k:'수시', t:'영업(잠정)실적 — 2Q 별도 매출 4,791억·영업이익 319억', x:'보도로 확인, 접수번호 미확인', url:'#', real:false, major:true },
+    ]},
+    'SK가스': { color:'var(--s3)', items:[
+      { d:'08.27', k:'기타', t:'대규모기업집단현황공시 [분기별공시(개별회사용)]', x:'공정거래법상 분기 공시', url:'https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260827000820', real:true },
+      { d:'08.27', k:'주요', t:'[첨부정정] 주요사항보고서(회사합병결정)', x:'SK어드밴스드 흡수합병 — 첨부서류 정정', url:'https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260827000513', real:true, major:true },
+      { d:'08.26', k:'수시', t:'투자판단관련주요경영사항', x:'합병 관련 투자판단 사항', url:'https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260826800756', real:true },
+      { d:'08.26', k:'수시', t:'주주명부폐쇄기간 또는 기준일 설정', x:'합병 승인 주총 기준일', url:'https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260826800641', real:true },
+      { d:'08.26', k:'수시', t:'회사합병결정 (종속회사의 주요경영사항)', x:'SK어드밴스드 측 합병 결정', url:'https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260826800684', real:true },
+      { d:'08.26', k:'기타', t:'기업설명회(IR) 개최 (안내공시)', x:'합병 관련 IR', url:'https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260826800620', real:true },
+      { d:'08.26', k:'주요', t:'주요사항보고서(회사합병결정)', x:'SK어드밴스드 흡수합병 결정 — 합병비율·매수청구가 원문 확인', url:'https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260826000626', real:true, major:true },
+      { d:'08.13', k:'정기', t:'반기보고서 (2026.06)', x:'연결 매출 2조3,130억 · 영업손실 439억 (보도 기준)', url:'https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260813001641', real:true },
+    ]},
+    'SK바이오사이언스': { color:'var(--s4)', items:[
+      { d:'08.28', k:'기타', t:'대규모기업집단현황공시 [분기별공시(개별회사용)]', x:'공정거래법상 분기 공시', url:'https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260828001235', real:true },
+      { d:'08.13', k:'정기', t:'반기보고서 (2026.06)', x:'상반기 매출 3,243억 · 영업손실 603억 (보도 기준)', url:'https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260813001292', real:true },
+    ]},
+    'SK플라즈마': { color:'var(--s5)', items:[
+      { d:'08.28', k:'기타', t:'대규모기업집단현황공시 [분기별공시(개별회사용)]', x:'공정거래법상 분기 공시 (비상장이지만 대규모기업집단 소속으로 공시 의무)', url:'https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260828000118', real:true },
+      { d:'08.13', k:'기타', t:'지급수단별·지급기간별 지급금액 및 분쟁조정기구에 관한 사항', x:'하도급법상 공시', url:'https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260813000674', real:true },
+      { d:'06.22', k:'주요', t:'[기재정정] 타법인주식 및 출자증권 취득결정', x:'튀르키예 프로젝트 관련 출자로 추정 — 원문 확인', url:'https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260622000236', real:true, major:true },
+      { d:'05.29', k:'기타', t:'대규모기업집단현황공시 [연1회·1분기용]', x:'공정거래법상 연 공시', url:'https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260529001271', real:true },
+      { d:'03.26', k:'정기', t:'연결감사보고서 (2025.12)', x:'2025 연결 재무제표 — 비상장이라 감사보고서가 연간 실적의 기본 소스', url:'https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260326000663', real:true, major:true },
+      { d:'03.26', k:'정기', t:'감사보고서 (2025.12)', x:'별도 재무제표', url:'https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260326000657', real:true },
+    ]},
+  };
+  const dtabs = document.getElementById('dtabs'), dpanel = document.getElementById('disc');
+  const names = Object.keys(disc);
+  function showDisc(n){
+    dtabs.querySelectorAll('button').forEach(b=>b.setAttribute('aria-selected', b.dataset.n===n));
+    dpanel.innerHTML = disc[n].items.map(i=>`<div class="d">
+      <div class="dt">${i.d}<small>2026</small></div>
+      <div><div class="t"><a href="${i.url}" ${i.url==='#'?'':'target="_blank" rel="noopener"'}>${i.t}</a> ${i.real?'<span class="chip dart">DART</span>':'<span class="chip ref">참고</span>'}</div><div class="x">${i.x}</div></div>
+      <span class="k ${i.major?'major':''}">${i.k}</span>
+    </div>`).join('');
+  }
+  dtabs.innerHTML = names.map(n=>`<button type="button" role="tab" data-n="${n}" aria-selected="false"><span class="sw" style="background:${disc[n].color}"></span>${n}</button>`).join('');
+  dtabs.addEventListener('click', e=>{ const b=e.target.closest('button'); if(b) showDisc(b.dataset.n); });
+  showDisc('SK가스');
+
+  // ---------- board sentiment (예시) ----------
+  const board = [
+    { n:'SK디스커버리', cnt:15, p:40, g:13, kw:["7만원 기대","매도 고민","2분기 요약"], top:"\"주가누르기방지법 관련 「상속세 및 증여세법」 상장주식 평가특례...\" (공감 12)" },
+    { n:'SK케미칼', cnt:15, p:40, g:27, kw:["상승 지속","수익 인증","자전거래 의심"], top:"\"화학주가 지금 꿀단지 노다지인걸 알까?ㅋㅋ\" (공감 5)" },
+    { n:'SK가스', cnt:15, p:7, g:20, kw:["합병 논쟁","유가 급등","2분기 분석"], top:"\"SK어드밴스드 올해 흑자임\" (공감 6)" },
+    { n:'SK바이오사이언스', cnt:15, p:13, g:60, kw:["매각 요구","경영진 불신","연기금 매도"], top:"\"요놈의 회사 임원 직원 연구원등 싸그리...\" (공감 14)" }
+  ];
+  const codes = { 'SK디스커버리':'006120','SK케미칼':'285130','SK가스':'018670','SK바이오사이언스':'302440' };
+  const boardNames = ['SK디스커버리','SK케미칼','SK가스','SK바이오사이언스'];
+  const coColor = { 'SK디스커버리':'var(--s1)','SK케미칼':'var(--s2)','SK가스':'var(--s3)','SK바이오사이언스':'var(--s4)' };
+  const sLabel = { pos:'긍정', neg:'부정', neu:'중립' };
+  const posts = {
+    'SK디스커버리': [
+      { s:"pos", t:"이번에 7자 보자", b:"", ag:0, dis:0, when:"9.2 16:24", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428832528" },
+      { s:"pos", t:"할매요 같이 좀 올라갑시다", b:"", ag:0, dis:0, when:"9.2 14:51", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428825084" },
+      { s:"neu", t:"아 팔아야하나. 3억", b:"", ag:0, dis:0, when:"9.2 12:58", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428814285" },
+      { s:"pos", t:"5% 이상 상승했어요 🎉", b:"", ag:0, dis:0, when:"9.2 12:22", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428811485" },
+      { s:"neg", t:"이생퀴 뭐냐", b:"", ag:0, dis:0, when:"9.2 10:37", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428800972" },
+      { s:"neu", t:"■■■ 최신 2분기보고서 핵심 요약", b:"", ag:2, dis:1, when:"9.2 10:12", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428798255" },
+      { s:"neg", t:"항상 오를만하면", b:"", ag:0, dis:0, when:"9.2 09:08", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428789875" },
+      { s:"neu", t:"최근 왜 강세인지 아시는 분 계신가요", b:"", ag:0, dis:0, when:"9.2 08:45", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428787196" },
+      { s:"pos", t:"5% 이상 상승했어요 🎉", b:"", ag:0, dis:0, when:"9.1 15:12", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428757940" },
+      { s:"neu", t:"에코플랜트", b:"", ag:2, dis:0, when:"9.1 09:19", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428725008" },
+      { s:"neu", t:"최창원부회장과 아들 주식담보대출", b:"", ag:0, dis:0, when:"8.31 17:16", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428704606" },
+      { s:"pos", t:"신낫네", b:"", ag:11, dis:1, when:"8.28 09:10", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428584063" },
+      { s:"neu", t:"주가누르기방지법 관련 「상속세 및 증여세법」 상장주식 평가특례 보완 요청에 관한 청원 : 국회청원에 동의해주세요", b:"", ag:12, dis:1, when:"8.27 16:58", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428559469" },
+      { s:"pos", t:"좀 기자", b:"", ag:1, dis:1, when:"8.27 10:53", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428529229" },
+      { s:"neu", t:"[AI 요약] 에스케이디스커버리의 자금보충약정 체결 소식이 발표되었어요📢", b:"", ag:0, dis:0, when:"8.26 17:50", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428491195" }
+    ],
+    'SK케미칼': [
+      { s:"neu", t:"내일 파란불 키면", b:"", ag:0, dis:0, when:"9.2 16:29", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428832762" },
+      { s:"pos", t:"아름답습니다~~", b:"", ag:1, dis:1, when:"9.2 13:35", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428817831" },
+      { s:"neg", t:"지수만 좋았어도", b:"", ag:0, dis:1, when:"9.2 06:47", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428782328" },
+      { s:"pos", t:"화학주가 지금 꿀단지 노다지인걸 알까?ㅋㅋ", b:"", ag:5, dis:4, when:"9.1 17:11", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428764781" },
+      { s:"neu", t:"요즘 왜 그러지 ㅎㅎ", b:"", ag:2, dis:1, when:"9.1 15:59", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428761299" },
+      { s:"pos", t:"기다릴필요도없네", b:"", ag:1, dis:0, when:"9.1 11:29", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428740318" },
+      { s:"pos", t:"제대로 된 조정 한번 없이", b:"", ag:1, dis:1, when:"9.1 09:32", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428726885" },
+      { s:"pos", t:"5% 이상 상승했어요 🎉", b:"", ag:1, dis:0, when:"9.1 09:13", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428723951" },
+      { s:"neg", t:"지들끼리 자전거래 신나게 돌리는구만 ㅋㅋ", b:"", ag:2, dis:1, when:"8.31 17:08", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428704286" },
+      { s:"neg", t:"39만에 들어간 주린이....", b:"", ag:3, dis:2, when:"8.31 15:57", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428701142" },
+      { s:"neu", t:"데이비고", b:"", ag:0, dis:2, when:"8.31 09:09", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428667223" },
+      { s:"neg", t:"다 좋은데 왜 거래량이 안붙는교", b:"", ag:3, dis:0, when:"8.28 21:15", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428634642" },
+      { s:"neu", t:"이럴때도", b:"", ag:0, dis:0, when:"8.28 18:43", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428631076" },
+      { s:"neu", t:"별 감흥 없다!!", b:"", ag:2, dis:0, when:"8.28 15:35", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428622777" },
+      { s:"pos", t:"수익", b:"", ag:4, dis:4, when:"8.28 15:11", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428620414" }
+    ],
+    'SK가스': [
+      { s:"neu", t:"디커", b:"", ag:0, dis:0, when:"9.2 12:24", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428811673" },
+      { s:"neu", t:"판교에서 만나요", b:"", ag:0, dis:0, when:"9.2 10:52", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428802887" },
+      { s:"neu", t:"■■■ 최신 2분기보고서 핵심 요약", b:"", ag:1, dis:0, when:"9.2 10:10", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428798077" },
+      { s:"neu", t:"브렌트유 7.45%폭등, 런던가스오일 7.03%폭등", b:"", ag:0, dis:0, when:"9.2 04:42", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428781378" },
+      { s:"neu", t:"■■ 최신 2분기보고서 분석", b:"", ag:1, dis:1, when:"9.2 00:35", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428779407" },
+      { s:"neu", t:"[상속 및 증여세법] 국회 국민동의 요청건", b:"", ag:1, dis:0, when:"8.29 11:16", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428644906" },
+      { s:"neu", t:"옳으신 말씀!", b:"", ag:1, dis:0, when:"8.28 14:20", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428615481" },
+      { s:"neu", t:"외인동향!", b:"", ag:1, dis:2, when:"8.28 11:06", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428599361" },
+      { s:"neu", t:"■이번 합병에 대한 CHAT GPT답변■", b:"", ag:3, dis:3, when:"8.28 10:34", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428595687" },
+      { s:"neu", t:"8시땡해도", b:"", ag:0, dis:0, when:"8.28 08:01", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428578206" },
+      { s:"neg", t:"적자 기업을 합병하다니....바이바이~~", b:"", ag:1, dis:1, when:"8.27 23:36", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428572229" },
+      { s:"neu", t:"합병원인", b:"", ag:2, dis:0, when:"8.27 16:33", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428558436" },
+      { s:"neg", t:"아주 큐트해", b:"", ag:3, dis:2, when:"8.27 10:19", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428525122" },
+      { s:"neg", t:"투기꾼들왔다가니까 개박살난거봐라 ㅋㅋㅋㅋ", b:"", ag:1, dis:0, when:"8.26 19:52", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428495003" },
+      { s:"pos", t:"SK어드밴스드 올해 흑자임", b:"", ag:6, dis:3, when:"8.26 19:52", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428494981" }
+    ],
+    'SK바이오사이언스': [
+      { s:"neg", t:"제발 본전만와주라", b:"", ag:0, dis:0, when:"9.2 16:17", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428832145" },
+      { s:"neg", t:"연기금이 계속 파는한 주가는 3만원대일듯", b:"", ag:0, dis:0, when:"9.2 15:45", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428829992" },
+      { s:"neg", t:"지수가 내려도 내리고", b:"", ag:0, dis:0, when:"9.2 15:04", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428826259" },
+      { s:"neg", t:"백날 물태워도", b:"", ag:5, dis:0, when:"9.2 10:29", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428800101" },
+      { s:"neg", t:"코로나 난리도 아닌데", b:"", ag:3, dis:0, when:"9.2 09:24", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428792461" },
+      { s:"neu", t:"국민성장펀드가 아니고", b:"", ag:1, dis:0, when:"9.2 09:08", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428789921" },
+      { s:"neu", t:"SK그룹은~~", b:"", ag:1, dis:0, when:"9.2 08:30", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428786145" },
+      { s:"neu", t:"딴돈만 사야지", b:"", ag:3, dis:0, when:"9.1 16:52", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428763886" },
+      { s:"neg", t:"Sk케미칼로 오세요 여러분들~~", b:"", ag:0, dis:3, when:"9.1 14:22", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428753619" },
+      { s:"neg", t:"요놈의 회사 임원 직원 연구원등 싸그리...", b:"", ag:14, dis:3, when:"9.1 12:50", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428746546" },
+      { s:"neg", t:"삼바한테 매각해~", b:"", ag:11, dis:3, when:"9.1 11:47", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428741986" },
+      { s:"neu", t:"ㅁ ㅏ ㄹ ㅕㄱ", b:"", ag:3, dis:1, when:"9.1 11:42", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428741578" },
+      { s:"neg", t:"평단가 5만", b:"", ag:2, dis:9, when:"9.1 10:51", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428736364" },
+      { s:"pos", t:"나의 미래 나의 희망 우리의 행복", b:"", ag:0, dis:2, when:"9.1 10:43", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428735463" },
+      { s:"pos", t:"단타 치면 안되요 홀딩", b:"", ag:1, dis:5, when:"9.1 10:22", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428733174" }
+    ],
+  };
+  // ---------- 종토방 인라인 탭 ----------
+  const btabs=document.getElementById('btabs'), bsum=document.getElementById('bsum'), bposts=document.getElementById('bposts');
+  const bNames=['전체'].concat(boardNames);
+  const postHTML=(p,co,showCo)=>`<article class="post">
+      <div class="h">${showCo?`<span class="co"><span class="sw" style="background:${coColor[co]}"></span>${co.replace('SK바이오사이언스','SK바사')}</span> `:''}<a href="${p.url}" target="_blank" rel="noopener">${p.t}</a> <span class="tag ${p.s==='neu'?'':p.s}">${sLabel[p.s]}</span></div>
+      <div class="side"><span class="agree">공감 ${p.ag} · 비공감 ${p.dis}</span><span class="src">${p.src}</span></div>
+      ${p.b?`<div class="b">${p.b}</div>`:''}
+      <div class="m"><span>${p.when}</span><span>·</span><span>작성자 비표시</span></div>
+    </article>`;
+  const sentBar=(b)=>{ const m=100-b.p-b.g; return `<div class="sent" data-tip="긍정 ${b.p}% · 중립 ${m}% · 부정 ${b.g}%"><span class="p" style="width:${b.p}%"></span><span class="n" style="width:${m}%"></span><span class="g" style="width:${b.g}%"></span></div>
+      <div class="sent-lab"><span class="p">긍정 ${b.p}%</span><span>중립 ${m}%</span><span class="g">부정 ${b.g}%</span></div>`; };
+  const whenKey=w=>{ const m=(w||'').match(/(\d+)\.(\d+)\s+(\d+):(\d+)/); return m? (+m[1])*1e6+(+m[2])*1e4+(+m[3])*100+(+m[4]) : 0; };
+  function showBoard(co){
+    btabs.querySelectorAll('button').forEach(x=>x.setAttribute('aria-selected', x.dataset.n===co));
+    if(co==='전체'){
+      bsum.innerHTML = `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px 16px">${board.map(b=>`<div style="min-width:0"><div style="display:flex;justify-content:space-between;flex-wrap:wrap;font-size:12px;margin-bottom:3px"><span style="font-weight:600"><span class="sw" style="display:inline-block;width:8px;height:8px;border-radius:2px;background:${coColor[b.n]};margin-right:6px"></span>${b.n.replace('SK바이오사이언스','SK바사')}</span><span class="num" style="color:var(--ink-3)">${b.cnt}건 분류</span></div>${sentBar(b)}</div>`).join('')}</div>`;
+      const all = boardNames.flatMap(n=>posts[n].map(p=>({...p,co:n}))).sort((a,b)=>whenKey(b.when)-whenKey(a.when));
+      bposts.innerHTML = all.map(p=>postHTML(p,p.co,true)).join('');
+    } else {
+      const b = board.find(x=>x.n===co);
+      bsum.innerHTML = `<div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--ink-2)">최신 ${b.cnt}건(글을 읽고 분류) · 최다 공감: <b>${b.top}</b></span><a href="https://finance.naver.com/item/board.naver?code=${codes[co]}" target="_blank" rel="noopener" style="font-weight:600;white-space:nowrap">네이버 원문 ↗</a></div>${sentBar(b)}<div class="kw" style="margin-top:6px">${b.kw.map(k=>`<span>#${k}</span>`).join('')}</div>`;
+      bposts.innerHTML = posts[co].map(p=>postHTML(p,co,false)).join('');
+    }
+  }
+  btabs.innerHTML = bNames.map(n=>`<button type="button" role="tab" data-n="${n}" aria-selected="false">${n==='전체'?'전체':`<span class="sw" style="background:${coColor[n]}"></span>`+n.replace('SK바이오사이언스','SK바사')}</button>`).join('');
+  btabs.addEventListener('click', e=>{ const x=e.target.closest('button'); if(x) showBoard(x.dataset.n); });
+  showBoard('전체');
+  const boardCard = document.querySelector('[aria-label="종토방 여론"]');
+  const goBoard = ()=> boardCard.scrollIntoView({behavior:'smooth', block:'start'});
+  document.querySelectorAll('[data-open-board]').forEach(el=>el.addEventListener('click', goBoard));
+
+  // ---------- tooltip ----------
+  const tip = document.getElementById('tip');
+  const sparkMap = {}; cos.forEach(c=>{ if(c.spark) sparkMap[c.key]={p:c.spark, d:c.sparkDates||[], name:c.name, fmt:v=>v.toLocaleString('ko-KR')+'원'}; });
+  sparkMap['fx']={p:FX_S, d:FXDAYS, name:'원/달러', fmt:v=>v.toFixed(2)+'원'};
+  sparkMap['kospi']={p:KOSPI_S, d:TDAYS, name:'코스피', fmt:v=>v.toLocaleString('ko-KR',{minimumFractionDigits:2,maximumFractionDigits:2})};
+  MKT.forEach(m=>{ sparkMap[m.key]={p:m.s, d:m.days, lbl:m.monthly?'계약가':'종가', name:m.name.replace(/ \(.*\)/,''), fmt:v=>v.toLocaleString('ko-KR',{maximumFractionDigits:m.dec})+(m.unit==='%'?'%':'')}; });
+  document.addEventListener('mousemove', e=>{
+    const sp = e.target.closest('[data-spark]');
+    if(sp && sparkMap[sp.dataset.spark]){
+      const m = sparkMap[sp.dataset.spark];
+      const r = sp.getBoundingClientRect();
+      let idx = Math.round((e.clientX - r.left) / Math.max(r.width,1) * (m.p.length - 1));
+      idx = Math.max(0, Math.min(m.p.length - 1, idx));
+      tip.textContent = `${m.d[idx]||''} ${m.lbl||'종가'} ${m.fmt(m.p[idx])}`;
+      tip.classList.add('on');
+      tip.style.left = (e.clientX+12)+'px'; tip.style.top = (e.clientY+14)+'px';
+      sp.querySelector('svg') && highlight(sp, idx, m);
+      return;
+    }
+    document.querySelectorAll('.spark-hl').forEach(x=>x.remove());
+    const t = e.target.closest('[data-tip]');
+    if(!t){ tip.classList.remove('on'); return; }
+    tip.textContent = t.dataset.tip; tip.classList.add('on');
+    tip.style.left = (e.clientX+12)+'px'; tip.style.top = (e.clientY+14)+'px';
+  });
+  function highlight(sp, idx, m){
+    document.querySelectorAll('.spark-hl').forEach(x=>x.remove());
+    const svg = sp.querySelector('svg'); if(!svg) return;
+    const w=200,h=40,p=3, vals=m.p;
+    const min=Math.min(...vals), max=Math.max(...vals), rng=(max-min)||1;
+    const cx = p + idx*(w-2*p)/(vals.length-1);
+    const cy = h-p-(vals[idx]-min)/rng*(h-2*p);
+    const NS='http://www.w3.org/2000/svg';
+    const ln=document.createElementNS(NS,'line');
+    ln.setAttribute('x1',cx); ln.setAttribute('x2',cx); ln.setAttribute('y1',0); ln.setAttribute('y2',h);
+    ln.setAttribute('stroke','var(--line-2)'); ln.setAttribute('stroke-width','1'); ln.setAttribute('vector-effect','non-scaling-stroke'); ln.classList.add('spark-hl');
+    const c2=document.createElementNS(NS,'circle');
+    c2.setAttribute('cx',cx); c2.setAttribute('cy',cy); c2.setAttribute('r','3');
+    c2.setAttribute('fill','var(--ink)'); c2.setAttribute('stroke','var(--surface)'); c2.setAttribute('stroke-width','1.5'); c2.setAttribute('vector-effect','non-scaling-stroke'); c2.classList.add('spark-hl');
+    svg.appendChild(ln); svg.appendChild(c2);
+  }
+})();
+</script>
