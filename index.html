@@ -386,7 +386,7 @@
     </section>
 
     <section class="card" aria-label="종토방 여론">
-      <div class="card-h"><h2>종토방은 지금 <span class="chip ref">네이버 실제</span></h2><span class="hint">9/7 12:30 수집 · 감성은 글을 읽고 분류</span></div>
+      <div class="card-h"><h2>종토방은 지금 <span class="chip ref">네이버 실제</span></h2><span class="hint">9/7 13:30 수집 · 감성은 글을 읽고 분류</span></div>
       <div class="tabs" id="btabs" role="tablist"></div>
       <div class="card-b">
         <div id="bsum" style="margin-bottom:10px"></div>
@@ -765,7 +765,7 @@
     { n:'SK디스커버리', cnt:15, p:27, g:20, kw:["매도 고민","강세 문의","2분기 요약"], top:"\"신낫네\" (공감 12)" },
     { n:'SK케미칼', cnt:15, p:20, g:7, kw:["상승 지속","수익 인증","매수 권유"], top:"\"10만원이 보인다\" (공감 10)" },
     { n:'SK가스', cnt:15, p:13, g:7, kw:["합병 논쟁","유가 급등","2분기 분석"], top:"\"■이번 합병에 대한 CHAT GPT답변■\" (공감 3)" },
-    { n:'SK바이오사이언스', cnt:15, p:20, g:13, kw:["경영진 불신","저평가 한탄","반등 기대"], top:"\"이건 주식아니다\" (공감 8)" }
+    { n:'SK바이오사이언스', cnt:15, p:20, g:13, kw:["경영진 불신","저평가 한탄","반등 기대"], top:"\"이건 주식아니다\" (공감 9)" }
   ];
   const codes = { 'SK디스커버리':'006120','SK케미칼':'285130','SK가스':'018670','SK바이오사이언스':'302440' };
   const boardNames = ['SK디스커버리','SK케미칼','SK가스','SK바이오사이언스'];
@@ -790,8 +790,8 @@
       { s:"neu", t:"주가누르기방지법 관련 「상속세 및 증여세법」 상장주식 평가특례 보완 요청에 관한 청원 : 국회청원에 동의해주세요", b:"", ag:12, dis:1, when:"8.27 16:58", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428559469" }
     ],
     'SK케미칼': [
-      { s:"neu", t:"요즘 실적 증가 대형호재 공시에도", b:"", ag:0, dis:1, when:"9.7 11:37", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=429024060" },
-      { s:"neu", t:"계속 짖어봐 ㅋㅋㅋ", b:"", ag:0, dis:0, when:"9.7 11:36", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=429023998" },
+      { s:"neu", t:"요즘 실적 증가 대형호재 공시에도", b:"", ag:1, dis:1, when:"9.7 11:37", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=429024060" },
+      { s:"neu", t:"계속 짖어봐 ㅋㅋㅋ", b:"", ag:1, dis:0, when:"9.7 11:36", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=429023998" },
       { s:"neu", t:"3만원에 문 넘들 부럽다", b:"", ag:0, dis:1, when:"9.7 09:05", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=429008191" },
       { s:"pos", t:"데이비고 유통 시작되면 얼마까지 오를까", b:"", ag:0, dis:1, when:"9.5 23:11", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428994292" },
       { s:"neu", t:"외넘들 국장 200조 팔고 먹튀", b:"", ag:0, dis:0, when:"9.5 20:36", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428993374" },
@@ -824,9 +824,9 @@
       { s:"neu", t:"합병원인", b:"", ag:2, dis:0, when:"8.27 16:33", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428558436" }
     ],
     'SK바이오사이언스': [
-      { s:"pos", t:"코스피 폭등!!!", b:"", ag:1, dis:0, when:"9.7 12:21", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429027299" },
-      { s:"neg", t:"이건 주식아니다", b:"", ag:8, dis:0, when:"9.7 11:03", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429021170" },
-      { s:"neu", t:"위에 매물 많네. 막는자가 있다는 것은", b:"", ag:1, dis:7, when:"9.7 09:40", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429012966" },
+      { s:"pos", t:"코스피 폭등!!!", b:"", ag:2, dis:0, when:"9.7 12:21", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429027299" },
+      { s:"neg", t:"이건 주식아니다", b:"", ag:9, dis:0, when:"9.7 11:03", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429021170" },
+      { s:"neu", t:"위에 매물 많네. 막는자가 있다는 것은", b:"", ag:2, dis:7, when:"9.7 09:40", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429012966" },
       { s:"neu", t:"값을 먹이자면", b:"", ag:2, dis:1, when:"9.7 09:38", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429012704" },
       { s:"neg", t:"바사삭 경영진이 잘 하는거 세계1등", b:"", ag:7, dis:0, when:"9.7 09:24", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429010961" },
       { s:"neu", t:"이회사는", b:"", ag:7, dis:0, when:"9.7 08:26", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429005528" },
@@ -915,4 +915,5 @@
   }
 })();
 </script>
+
 
