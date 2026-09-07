@@ -378,7 +378,7 @@
         <span class="src"><span class="chip ref">뉴스·주가 실제</span></span>
       </div>
       
-      <div class="src"><span>뉴스: 다음뉴스 검색 최신순 · 9/4 12:50 갱신 · 회사별 최신 3~8건 · 여론은 네이버 종토방 실제</span><span>·</span><button type="button" class="linkline" data-open-board="ALL">여론(네이버 237건) <span class="tag pos">긍정 20%</span> <span class="tag neg">부정 10%</span> <span style="color:var(--ink-3)">· 종토방 의견 보기 ›</span></button></div>
+      <div class="src"><span>뉴스: 다음뉴스 검색 최신순 · 9/4 12:50 갱신 · 회사별 최신 3~8건 · 여론은 네이버 종토방 실제</span><span>·</span><button type="button" class="linkline" data-open-board="ALL">여론(네이버 237건) <span class="tag pos">긍정 20%</span> <span class="tag neg">부정 12%</span> <span style="color:var(--ink-3)">· 종토방 의견 보기 ›</span></button></div>
 
       <div class="tabs" id="ntabs" role="tablist" style="padding:0;border-bottom:1px solid var(--line)"></div>
       <div class="news" id="news" style="border-top:0;max-height:640px;overflow-y:auto;padding-right:6px"></div>
@@ -386,7 +386,7 @@
     </section>
 
     <section class="card" aria-label="종토방 여론">
-      <div class="card-h"><h2>종토방은 지금 <span class="chip ref">네이버 실제</span></h2><span class="hint">9/7 10:30 수집 · 감성은 글을 읽고 분류</span></div>
+      <div class="card-h"><h2>종토방은 지금 <span class="chip ref">네이버 실제</span></h2><span class="hint">9/7 11:30 수집 · 감성은 글을 읽고 분류</span></div>
       <div class="tabs" id="btabs" role="tablist"></div>
       <div class="card-b">
         <div id="bsum" style="margin-bottom:10px"></div>
@@ -765,7 +765,7 @@
     { n:'SK디스커버리', cnt:15, p:27, g:20, kw:["매도 고민","강세 문의","2분기 요약"], top:"\"신낫네\" (공감 12)" },
     { n:'SK케미칼', cnt:15, p:27, g:7, kw:["상승 지속","수익 인증","매수 권유"], top:"\"10만원이 보인다\" (공감 10)" },
     { n:'SK가스', cnt:15, p:13, g:7, kw:["합병 논쟁","유가 급등","2분기 분석"], top:"\"■이번 합병에 대한 CHAT GPT답변■\" (공감 3)" },
-    { n:'SK바이오사이언스', cnt:15, p:13, g:7, kw:["경영진 불신","저평가 한탄","반등 기대"], top:"\"주봉이나 월봉을 봐봐요.\" (공감 6)" }
+    { n:'SK바이오사이언스', cnt:15, p:13, g:13, kw:["경영진 불신","저평가 한탄","반등 기대"], top:"\"이회사는\" (공감 6)" }
   ];
   const codes = { 'SK디스커버리':'006120','SK케미칼':'285130','SK가스':'018670','SK바이오사이언스':'302440' };
   const boardNames = ['SK디스커버리','SK케미칼','SK가스','SK바이오사이언스'];
@@ -773,7 +773,7 @@
   const sLabel = { pos:'긍정', neg:'부정', neu:'중립' };
   const posts = {
     'SK디스커버리': [
-      { s:"neg", t:"자회사 가치 상승이 SK디스커버리 주가로 연결되지 않는 문제", b:"", ag:0, dis:1, when:"9.4 20:10", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428978599" },
+      { s:"neg", t:"자회사 가치 상승이 SK디스커버리 주가로 연결되지 않는 문제", b:"", ag:0, dis:2, when:"9.4 20:10", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428978599" },
       { s:"neu", t:"신한", b:"", ag:1, dis:0, when:"9.4 09:49", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428936220" },
       { s:"neu", t:"아! 진ㅉᆢ", b:"", ag:0, dis:0, when:"9.4 09:10", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428930245" },
       { s:"pos", t:"할매요 같이 좀 올라갑시다", b:"", ag:0, dis:0, when:"9.2 14:51", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428825084" },
@@ -807,7 +807,7 @@
       { s:"pos", t:"어제 장 버티고", b:"", ag:0, dis:0, when:"9.3 10:37", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428871558" }
     ],
     'SK가스': [
-      { s:"pos", t:"SK가스 상치겠는데?", b:"", ag:0, dis:1, when:"9.5 22:47", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428994163" },
+      { s:"pos", t:"SK가스 상치겠는데?", b:"", ag:1, dis:1, when:"9.5 22:47", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428994163" },
       { s:"neu", t:"26만에 팔고싶다", b:"", ag:0, dis:0, when:"9.4 10:51", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428944046" },
       { s:"pos", t:"5% 이상 상승했어요 🎉", b:"", ag:0, dis:0, when:"9.3 10:13", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428868725" },
       { s:"neu", t:"디커", b:"", ag:0, dis:0, when:"9.2 12:24", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428811673" },
@@ -824,12 +824,13 @@
       { s:"neu", t:"합병원인", b:"", ag:2, dis:0, when:"8.27 16:33", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428558436" }
     ],
     'SK바이오사이언스': [
-      { s:"neu", t:"위에 매물 많네. 막는자가 있다는 것은", b:"", ag:0, dis:6, when:"9.7 09:40", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429012966" },
-      { s:"neu", t:"값을 먹이자면", b:"", ag:1, dis:0, when:"9.7 09:38", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429012704" },
-      { s:"neg", t:"바사삭 경영진이 잘 하는거 세계1등", b:"", ag:3, dis:0, when:"9.7 09:24", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429010961" },
-      { s:"neu", t:"이회사는", b:"", ag:5, dis:0, when:"9.7 08:26", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429005528" },
-      { s:"pos", t:"코스피 코스닥 폭등", b:"", ag:2, dis:3, when:"9.4 15:28", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428968143" },
-      { s:"neu", t:"혼자 잘 논다 촉수금지", b:"", ag:2, dis:1, when:"9.4 14:36", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428963419" },
+      { s:"neg", t:"이건 주식아니다", b:"", ag:1, dis:0, when:"9.7 11:03", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429021170" },
+      { s:"neu", t:"위에 매물 많네. 막는자가 있다는 것은", b:"", ag:1, dis:7, when:"9.7 09:40", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429012966" },
+      { s:"neu", t:"값을 먹이자면", b:"", ag:1, dis:1, when:"9.7 09:38", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429012704" },
+      { s:"neg", t:"바사삭 경영진이 잘 하는거 세계1등", b:"", ag:5, dis:0, when:"9.7 09:24", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429010961" },
+      { s:"neu", t:"이회사는", b:"", ag:6, dis:0, when:"9.7 08:26", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429005528" },
+      { s:"pos", t:"코스피 코스닥 폭등", b:"", ag:3, dis:3, when:"9.4 15:28", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428968143" },
+      { s:"neu", t:"혼자 잘 논다 촉수금지", b:"", ag:3, dis:1, when:"9.4 14:36", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428963419" },
       { s:"neu", t:"주봉이나 월봉을 봐봐요.", b:"", ag:6, dis:4, when:"9.4 14:27", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428962636" },
       { s:"neu", t:"쭉 그대로다", b:"", ag:4, dis:1, when:"9.4 14:12", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428961030" },
       { s:"neu", t:"진짜", b:"", ag:6, dis:1, when:"9.4 13:15", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428956204" },
@@ -837,8 +838,7 @@
       { s:"neu", t:"똥인지 된장인지", b:"", ag:0, dis:0, when:"9.4 11:16", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428946877" },
       { s:"pos", t:"오늘 단기 고점을 만들고 있는듯", b:"", ag:2, dis:2, when:"9.4 10:28", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428941013" },
       { s:"neu", t:"거래량이...", b:"", ag:1, dis:1, when:"9.4 09:35", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428934221" },
-      { s:"neu", t:"오늘도", b:"", ag:0, dis:0, when:"9.4 09:18", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428931615" },
-      { s:"neu", t:"SK바팜, 추월하기", b:"", ag:2, dis:1, when:"9.4 08:28", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428926690" }
+      { s:"neu", t:"오늘도", b:"", ag:0, dis:0, when:"9.4 09:18", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428931615" }
     ]
   };
   // ---------- 종토방 인라인 탭 ----------
