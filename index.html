@@ -626,7 +626,7 @@
     const newsQ = w => 'https://search.daum.net/search?w=news&sort=recency&q='+encodeURIComponent(r.co+' '+w.b+' 목표주가');
     const rows = r.rows.map(w=>`<a class="rrow rlink" href="${newsQ(w)}" target="_blank" rel="noopener" title="${r.co} ${w.b} 리포트 관련 기사 검색"><span>${w.b} <small>${w.d}</small></span><span class="num">${w.t?w.t.toLocaleString('ko-KR')+'원':'—'} · ${w.o}${w.x?` <small class="down">${w.x}</small>`:''} <small>› 관련 기사</small></span></a>`).join('');
     return `<div class="mvg">${head}${rows}${r.note?`<div class="why">${r.note}</div>`:''}</div>`;
-  }).join('') + `<div class="why" style="margin-top:8px">목표주가·의견은 WiseReport(FnGuide)가 전 증권사 추정치를 집계한 컨센서스입니다. 리포트 원문 PDF는 대부분의 증권사가 무료로 공개하지 않고, WiseReport 자체 리포트 원문 서비스도 종료되어 더 이상 제공되지 않습니다. 각 행을 클릭하면 다음뉴스에서 해당 리포트를 인용·보도한 관련 기사를 확인할 수 있습니다. 회사명을 클릭하면 WiseReport 컨센서스 상세 페이지로 이동합니다.</div>`;
+  }).join('') + `<div class="why" style="margin-top:8px">회사명을 클릭하면 목표주가·컨센서스가 있는 WiseReport '기업현황' 화면이 바로 열립니다. WiseReport 안의 '최근리포트' 탭은 서비스 자체가 종료되어(어느 종목이든 "해당 리포트 서비스는 제공이 종료되었습니다" 안내만 표시) 리포트 원문 PDF를 볼 수 없으니 그 탭은 클릭하지 않으셔도 됩니다 — 리포트 요지는 각 행의 '관련 기사'(다음뉴스)로 확인하세요.</div>`;
   document.getElementById('rating').innerHTML = CRD.map(c=>{
     const url = c.url || (c.kiscd?`https://www.kisrating.com/ratingsSearch/corp_overview.do?kiscd=${c.kiscd}`:null);
     const head = `<div class="h">${url?`<a class="k" href="${url}" target="_blank" rel="noopener">${c.co} ›</a>`:`<span class="k">${c.co}</span>`}
