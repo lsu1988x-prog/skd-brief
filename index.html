@@ -387,7 +387,7 @@
     </section>
 
     <section class="card" aria-label="종토방 여론">
-      <div class="card-h"><h2>종토방은 지금 <span class="chip ref">네이버 실제</span></h2><span class="hint">9/7 13:30 수집 · 감성은 글을 읽고 분류</span></div>
+      <div class="card-h"><h2>종토방은 지금 <span class="chip ref">네이버 실제</span></h2><span class="hint">9/14 09:17 수집 · 감성은 글을 읽고 분류</span></div>
       <div class="tabs" id="btabs" role="tablist"></div>
       <div class="card-b">
         <div id="bsum" style="margin-bottom:10px"></div>
@@ -767,10 +767,10 @@
 
   // ---------- board sentiment (예시) ----------
   const board = [
-    { n:'SK디스커버리', cnt:15, p:27, g:20, kw:["매도 고민","강세 문의","2분기 요약"], top:"\"신낫네\" (공감 12)" },
-    { n:'SK케미칼', cnt:15, p:20, g:7, kw:["상승 지속","수익 인증","매수 권유"], top:"\"10만원이 보인다\" (공감 10)" },
-    { n:'SK가스', cnt:15, p:13, g:7, kw:["합병 논쟁","유가 급등","2분기 분석"], top:"\"■이번 합병에 대한 CHAT GPT답변■\" (공감 3)" },
-    { n:'SK바이오사이언스', cnt:15, p:20, g:13, kw:["경영진 불신","저평가 한탄","반등 기대"], top:"\"이건 주식아니다\" (공감 9)" }
+    { n:'SK디스커버리', cnt:15, p:13, g:53, kw:["주가 정체 불만","자회사가치 괴리","2분기 요약"], top:"\"꼬라지 보니~\" (공감 6)" },
+    { n:'SK케미칼', cnt:15, p:27, g:53, kw:["20만원 기대","실적 호재 언급","저점 매수 인증"], top:"\"20만원 다시보자 20만원\" (공감 8)" },
+    { n:'SK가스', cnt:15, p:40, g:40, kw:["합병 이슈 여진","유가 급등 수혜","리포트 언급"], top:"\"새로운 리서치가 있어요 📝\" (공감 9)" },
+    { n:'SK바이오사이언스', cnt:15, p:7, g:73, kw:["경영진 불신","공매도 음모론","임상 기대"], top:"\"일좀해라...경영진들아...\" (공감 11)" }
   ];
   const codes = { 'SK디스커버리':'006120','SK케미칼':'285130','SK가스':'018670','SK바이오사이언스':'302440' };
   const boardNames = ['SK디스커버리','SK케미칼','SK가스','SK바이오사이언스'];
@@ -778,72 +778,72 @@
   const sLabel = { pos:'긍정', neg:'부정', neu:'중립' };
   const posts = {
     'SK디스커버리': [
-      { s:"neg", t:"자회사 가치 상승이 SK디스커버리 주가로 연결되지 않는 문제", b:"", ag:0, dis:2, when:"9.4 20:10", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428978599" },
-      { s:"neu", t:"신한", b:"", ag:1, dis:0, when:"9.4 09:49", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428936220" },
-      { s:"neu", t:"아! 진ㅉᆢ", b:"", ag:0, dis:0, when:"9.4 09:10", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428930245" },
-      { s:"pos", t:"할매요 같이 좀 올라갑시다", b:"", ag:0, dis:0, when:"9.2 14:51", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428825084" },
-      { s:"neu", t:"아 팔아야하나. 3억", b:"", ag:1, dis:0, when:"9.2 12:58", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428814285" },
+      { s:"neu", t:"유행성감영병 유행조짐", b:"모두들 건강 챙기세요", ag:0, dis:0, when:"9.9 14:28", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=429164824" },
+      { s:"neu", t:"자회사 뉴스", b:"독일 화학기업 에보닉(Evonik)이 폴리에스터 코팅·접착제 사업에서 철수하면서 SK케미칼에 대체 공급 문의가 증가하고 있습니다.", ag:3, dis:0, when:"9.9 14:15", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=429163573" },
+      { s:"neg", t:"이번달", b:"발작버튼* 가격은 얼마일까?*일정 가격이 되면 언놈이 발작하듯 싫어하는 가격 상승제한폭(딴 종목에는 없고 이 잡주에만 있는 특이한 용어임국어사전에는 안나옴)5만 7천원?", ag:2, dis:0, when:"9.9 10:40", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=429144254" },
+      { s:"neg", t:"꼬라지 보니~", b:"낼부터 또 4만 후반때까지 계단식 하락 예약이네.사측이 주가 상승 의지가 없는게 제일 문제네", ag:6, dis:1, when:"9.8 15:04", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=429100556" },
+      { s:"neg", t:"병이네병", b:"주가 오르는걸 병적으로 시러하네주가누르기장려법 어찌됫나더 더 더 장려 할려고 준비중인가주가누르기 방지법 만든다하니진짜 인줄 알았냐", ag:6, dis:1, when:"9.8 10:05", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=429072022" },
+      { s:"pos", t:"5% 이상 상승했어요 🎉", b:"", ag:1, dis:0, when:"9.7 13:55", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=429034599" },
+      { s:"neg", t:"애는 외국인이 사면 오르는구나.", b:"거래량 없는게 제일 큰 문제네.외국인이 조금만 사줘도 오르고~.", ag:2, dis:0, when:"9.7 13:38", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=429033308" },
+      { s:"neg", t:"자회사 가치 상승이 SK디스커버리 주가로 연결되지 않는 문제", b:"이건 구조적인 악재입니다.예를 들어SK가스 ↑SK케미칼 ↑SK플라즈마 ↑해도 SK디스커버리가 반드시 같이 상승하지 않습니다.왜냐하면 시장이 지주회사에지분가치 × 할인율을 적용하기 때문입니다.왜이를까요?1차 원인 : ", ag:0, dis:2, when:"9.4 20:10", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428978599" },
+      { s:"neg", t:"신한", b:"역시 ㄱ 후래", ag:0, dis:0, when:"9.4 09:49", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428936220" },
+      { s:"neg", t:"아! 진ㅉᆢ", b:"너무하네.쌍", ag:0, dis:0, when:"9.4 09:10", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428930245" },
+      { s:"neu", t:"할매요 같이 좀 올라갑시다", b:"sk바사좀 챙겨줘라", ag:0, dis:0, when:"9.2 14:51", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428825084" },
+      { s:"neg", t:"아 팔아야하나. 3억", b:"겁나네 ㅋ 떨어질까봐", ag:1, dis:0, when:"9.2 12:58", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428814285" },
       { s:"pos", t:"5% 이상 상승했어요 🎉", b:"", ag:0, dis:0, when:"9.2 12:22", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428811485" },
-      { s:"neg", t:"이생퀴 뭐냐", b:"", ag:1, dis:0, when:"9.2 10:37", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428800972" },
-      { s:"neu", t:"■■■ 최신 2분기보고서 핵심 요약", b:"", ag:2, dis:3, when:"9.2 10:12", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428798255" },
-      { s:"neg", t:"항상 오를만하면", b:"", ag:1, dis:0, when:"9.2 09:08", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428789875" },
-      { s:"neu", t:"최근 왜 강세인지 아시는 분 계신가요", b:"", ag:0, dis:2, when:"9.2 08:45", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428787196" },
-      { s:"pos", t:"5% 이상 상승했어요 🎉", b:"", ag:0, dis:0, when:"9.1 15:12", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428757940" },
-      { s:"neu", t:"에코플랜트", b:"", ag:2, dis:0, when:"9.1 09:19", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428725008" },
-      { s:"neu", t:"최창원부회장과 아들 주식담보대출", b:"", ag:0, dis:0, when:"8.31 17:16", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428704606" },
-      { s:"pos", t:"신낫네", b:"", ag:12, dis:2, when:"8.28 09:10", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428584063" },
-      { s:"neu", t:"주가누르기방지법 관련 「상속세 및 증여세법」 상장주식 평가특례 보완 요청에 관한 청원 : 국회청원에 동의해주세요", b:"", ag:12, dis:1, when:"8.27 16:58", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428559469" }
+      { s:"neu", t:"이생퀴 뭐냐", b:"왜 오르는거삼", ag:1, dis:0, when:"9.2 10:37", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428800972" },
+      { s:"neu", t:"■■■ 최신 2분기보고서 핵심 요약", b:"봄리포트 vomReport 분석 중 핵심요약만 가져왔습니다.핵심 요약SK디스커버리는 스스로 제품을 만들어 팔지 않고 SK가스·SK케미칼·SK플라즈마 같은 자회사가 올려보내는 배당만으로 사는 순수지주회사입니다. 지주 ", ag:2, dis:2, when:"9.2 10:12", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=006120&nid=428798255" }
     ],
     'SK케미칼': [
-      { s:"neu", t:"요즘 실적 증가 대형호재 공시에도", b:"", ag:1, dis:1, when:"9.7 11:37", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=429024060" },
-      { s:"neu", t:"계속 짖어봐 ㅋㅋㅋ", b:"", ag:1, dis:0, when:"9.7 11:36", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=429023998" },
-      { s:"neu", t:"3만원에 문 넘들 부럽다", b:"", ag:0, dis:1, when:"9.7 09:05", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=429008191" },
-      { s:"pos", t:"데이비고 유통 시작되면 얼마까지 오를까", b:"", ag:0, dis:1, when:"9.5 23:11", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428994292" },
-      { s:"neu", t:"외넘들 국장 200조 팔고 먹튀", b:"", ag:0, dis:0, when:"9.5 20:36", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428993374" },
-      { s:"neu", t:"사업군/연구품목 공부 끝.", b:"", ag:4, dis:2, when:"9.5 16:11", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428991479" },
-      { s:"neu", t:"개미 날파리넘들", b:"", ag:0, dis:1, when:"9.5 12:06", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428989627" },
-      { s:"neu", t:"코폴리 + MU + 바사 동시에 터졌을 때 주가 예상좀 해주십셔", b:"", ag:1, dis:1, when:"9.4 13:17", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428956389" },
-      { s:"neu", t:"계속 포모만 오는거지 뭐 ㅋㅋ", b:"", ag:1, dis:1, when:"9.4 12:23", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428952323" },
-      { s:"neu", t:"역시 3만원대 오면 무조건 추매를 했어야했다.", b:"", ag:0, dis:2, when:"9.4 10:37", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428942130" },
-      { s:"pos", t:"10만원이 보인다", b:"", ag:10, dis:5, when:"9.3 13:21", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428886043" },
-      { s:"pos", t:"ㅋㅋ케미칼주식 꿀단지라했지?", b:"", ag:4, dis:4, when:"9.3 12:29", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428882076" },
-      { s:"neu", t:"역시 요즘장에는", b:"", ag:1, dis:0, when:"9.3 12:14", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428880974" },
-      { s:"neg", t:"내일 또 쓰레기처럼 내려간다", b:"", ag:1, dis:1, when:"9.3 12:14", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428880958" },
-      { s:"neu", t:"지금 오르는건", b:"", ag:4, dis:1, when:"9.3 10:56", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428873885" }
+      { s:"neu", t:"주식리딩비 환불받는 법 & 리딩방·책팔이 수법", b:"주식리딩비 환불받는 법 & 리딩방·책팔이 수법주식리딩에 쓴 돈은 환불받을 수 있습니다(자동프로그램 구매금액도 경우에 따라 돌려받을 수 있으나 조금 복잡해서 생략)상대의 은행 계좌 정보가 있어야 함10년 이내여야 함주", ag:0, dis:0, when:"9.14 01:59", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=429325143" },
+      { s:"pos", t:"20만원 다시보자 20만원", b:"20만원 가자", ag:8, dis:5, when:"9.9 12:40", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=429155738" },
+      { s:"neg", t:"여기서 더 처박으면", b:"다시 삼마넌임", ag:3, dis:0, when:"9.8 12:43", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=429087170" },
+      { s:"neg", t:"위험하다", b:"가두리 물억으면 무덤", ag:1, dis:1, when:"9.8 09:19", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=429065121" },
+      { s:"neg", t:"아름답다 아름다워 ㅎㅎㅎ", b:"더 절망해라 ㅋㅋ", ag:3, dis:2, when:"9.8 09:12", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=429063830" },
+      { s:"pos", t:"20만원까지만 가보자~", b:"많이 기달렸다 아이가", ag:4, dis:4, when:"9.7 18:26", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=429049486" },
+      { s:"neg", t:"sk 해외 공장 독성 물질 유출되었네요", b:"https://www.leadeconomy.co.kr/news/articleView.html?idxno=9588", ag:0, dis:0, when:"9.7 15:59", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=429044076" },
+      { s:"neg", t:"요즘 실적 증가 대형호재 공시에도", b:"박토막 끼있는 초우량 종목 널려 있다올라있는 종목 건들다 가두리 물먹으연초상외인기관 조막새들이 매집해 꼬시어떠넘길 때는 결국 개미뿐사기주식도박판 공매도 해먹고반대로 상승시켜 해먹고 똑같은 넘이해먹는것반복 학습효과 이", ag:1, dis:1, when:"9.7 11:37", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=429024060" },
+      { s:"pos", t:"계속 짖어봐 ㅋㅋㅋ", b:"짖는만큼 올라가니까 ㅋㅋㅋ왈왈!!!!3-4만원일때 산 애들은 현명한 애들이 맞지 ㅋㅋㅋ", ag:3, dis:1, when:"9.7 11:36", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=429023998" },
+      { s:"neg", t:"3만원에 문 넘들 부럽다", b:"sk케미컬은 2~3만원이 적정가임근데 거래량 그지같네?ㅋ", ag:0, dis:1, when:"9.7 09:05", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=429008191" },
+      { s:"neu", t:"데이비고 유통 시작되면 얼마까지 오를까", b:"지금 가격이 선반영 된건가?", ag:0, dis:1, when:"9.5 23:11", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428994292" },
+      { s:"neg", t:"외넘들 국장 200조 팔고 먹튀", b:"고객예탁금 3개월전140조현 90조개인손실공포 투자심리최악수급전무 불안장세지속지수 방어도 힘겹다바로 얼마전 3만원대에서 단기간80% 많이올라 몇푼 더먹겠다고 ㅋ수익챙겨 팔고 빠져야지더이상 뭘 바라는데 내일 상간다해도", ag:0, dis:0, when:"9.5 20:36", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428993374" },
+      { s:"pos", t:"사업군/연구품목 공부 끝.", b:"기술유출/덤핑/매크로 침체 없이 이대로 갈 경우주가 140,000원 도달.미국 독점품목 사업군OEM ODM 확대 수혜국내 과점대중국 경쟁력저환율 저유가 경쟁력신사업군, 재무건전성화장품 용기 납품 경쟁력(1-2년 품질", ag:4, dis:2, when:"9.5 16:11", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428991479" },
+      { s:"neg", t:"개미 날파리넘들", b:"숨어 숨죽이고 눈치보고 짱박아 있는중아차하면 이익실현 튀려고 ㅎ ㅎ", ag:0, dis:1, when:"9.5 12:06", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428989627" },
+      { s:"neu", t:"코폴리 + MU + 바사 동시에 터졌을 때 주가 예상좀 해주십셔", b:"얼마 까지 가넝?", ag:1, dis:1, when:"9.4 13:17", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=285130&nid=428956389" }
     ],
     'SK가스': [
-      { s:"pos", t:"SK가스 상치겠는데?", b:"", ag:1, dis:1, when:"9.5 22:47", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428994163" },
-      { s:"neu", t:"26만에 팔고싶다", b:"", ag:0, dis:0, when:"9.4 10:51", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428944046" },
-      { s:"pos", t:"5% 이상 상승했어요 🎉", b:"", ag:0, dis:0, when:"9.3 10:13", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428868725" },
-      { s:"neu", t:"디커", b:"", ag:0, dis:0, when:"9.2 12:24", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428811673" },
-      { s:"neu", t:"판교에서 만나요", b:"", ag:0, dis:0, when:"9.2 10:52", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428802887" },
-      { s:"neu", t:"■■■ 최신 2분기보고서 핵심 요약", b:"", ag:2, dis:0, when:"9.2 10:10", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428798077" },
-      { s:"neu", t:"브렌트유 7.45%폭등, 런던가스오일 7.03%폭등", b:"", ag:0, dis:0, when:"9.2 04:42", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428781378" },
-      { s:"neu", t:"■■ 최신 2분기보고서 분석", b:"", ag:1, dis:1, when:"9.2 00:35", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428779407" },
-      { s:"neu", t:"[상속 및 증여세법] 국회 국민동의 요청건", b:"", ag:1, dis:0, when:"8.29 11:16", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428644906" },
-      { s:"neu", t:"옳으신 말씀!", b:"", ag:1, dis:0, when:"8.28 14:20", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428615481" },
-      { s:"neu", t:"외인동향!", b:"", ag:1, dis:2, when:"8.28 11:06", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428599361" },
-      { s:"neu", t:"■이번 합병에 대한 CHAT GPT답변■", b:"", ag:3, dis:3, when:"8.28 10:34", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428595687" },
-      { s:"neu", t:"8시땡해도", b:"", ag:0, dis:0, when:"8.28 08:01", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428578206" },
-      { s:"neg", t:"적자 기업을 합병하다니....바이바이~~", b:"", ag:1, dis:1, when:"8.27 23:36", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428572229" },
-      { s:"neu", t:"합병원인", b:"", ag:2, dis:0, when:"8.27 16:33", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428558436" }
+      { s:"neu", t:"sk가스", b:"이번주 전망 어떻게 보실까요?", ag:0, dis:0, when:"9.14 00:03", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=429324625" },
+      { s:"pos", t:"장사 잘한다고 냄새 맡고 왔수다.", b:"그래서 오늘 매수 입성했습니다.", ag:1, dis:0, when:"9.11 15:09", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=429292941" },
+      { s:"neg", t:"진짜 짜증나는 주식이네", b:"갈려고하면 어김없이 누르네 참나", ag:1, dis:0, when:"9.11 08:12", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=429257359" },
+      { s:"neu", t:"새로운 리서치가 있어요 📝", b:"", ag:9, dis:0, when:"9.10 09:13", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=429198583" },
+      { s:"neg", t:"★SK가스는 상한가 안가니?★", b:"미국 이란 전쟁 때문에 어제 화학, 정유, 2차 전지 등등 개나소나 10~20% 안팎으로 급등했는데 넌 뭐하니? 한참 전쟁 때 넥장에서 상한가 몇 번 보여 줬잖아?", ag:4, dis:0, when:"9.10 09:10", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=429198123" },
+      { s:"pos", t:"리포트 나왔구나 역시..^^ 대미투자 수혜주는 언급을 안하네...", b:"리포트에 언급된 내용 이외대미투자 1호 텍사스 엔시날 가스복합발전소 간접 수혜주로. 텍사스 남부 전력망(ERCOT) 연계되어엑시날 1차 상업 가동 시기 1.4GW(전체 6.4GW중 단계별로) 29년 가동... 이와 ", ag:5, dis:0, when:"9.10 09:05", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=429197311" },
+      { s:"pos", t:"5% 이상 상승했어요 🎉", b:"", ag:0, dis:0, when:"9.10 09:01", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=429196612" },
+      { s:"pos", t:"딱 .. .", b:"30만원까지라도 갔으면 바랄게 없을거 같습니다...", ag:0, dis:0, when:"9.10 08:45", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=429195384" },
+      { s:"neg", t:"개 ㅈ망주식 ㅋㅋㅋㅋㅋㅋㅋㅋㅋ 다시는안산다 ㅇㅇ", b:"ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ", ag:0, dis:0, when:"9.9 16:49", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=429174339" },
+      { s:"neg", t:"거래량도 없고 호가창 봐라..", b:"이런 주식은 누가 사나..?", ag:1, dis:0, when:"9.9 09:28", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=429135761" },
+      { s:"neg", t:"이종목 진짜 사람 지치게 만드네..", b:"휴....", ag:0, dis:1, when:"9.9 09:13", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=429133530" },
+      { s:"neu", t:"벽돌쌓기", b:"콘크리트벽체가 아니고 벽돌로 (246500) 조적벽 쌓나요?", ag:1, dis:0, when:"9.9 08:23", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=429129032" },
+      { s:"neg", t:"정유주는 신고가인데 가스는 왜이러냐", b:"진짜 이해가 안가네 정말", ag:3, dis:0, when:"9.8 09:27", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=429066531" },
+      { s:"pos", t:"SK가스 상치겠는데?", b:"라고 할뻔~종토방형님들 희망회로 굴리시는 거 좋지만 제미나이 챗지피티에 물어보고 투자하는 거 만큼 바보짓이 없습니다.그저 질문자의 의도를 파악해서 원하는 방향으로 대화를 하는 게 현재 AI의 현실입니다.회사가 지금은", ag:3, dis:1, when:"9.5 22:47", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428994163" },
+      { s:"pos", t:"26만에 팔고싶다", b:"지금도 수익권이지만 욕심내서 26만에 다 팔고싶당", ag:0, dis:0, when:"9.4 10:51", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=018670&nid=428944046" }
     ],
     'SK바이오사이언스': [
-      { s:"pos", t:"코스피 폭등!!!", b:"", ag:2, dis:0, when:"9.7 12:21", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429027299" },
-      { s:"neg", t:"이건 주식아니다", b:"", ag:9, dis:0, when:"9.7 11:03", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429021170" },
-      { s:"neu", t:"위에 매물 많네. 막는자가 있다는 것은", b:"", ag:2, dis:7, when:"9.7 09:40", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429012966" },
-      { s:"neu", t:"값을 먹이자면", b:"", ag:2, dis:1, when:"9.7 09:38", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429012704" },
-      { s:"neg", t:"바사삭 경영진이 잘 하는거 세계1등", b:"", ag:7, dis:0, when:"9.7 09:24", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429010961" },
-      { s:"neu", t:"이회사는", b:"", ag:7, dis:0, when:"9.7 08:26", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429005528" },
-      { s:"pos", t:"코스피 코스닥 폭등", b:"", ag:3, dis:3, when:"9.4 15:28", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428968143" },
-      { s:"neu", t:"혼자 잘 논다 촉수금지", b:"", ag:3, dis:1, when:"9.4 14:36", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428963419" },
-      { s:"neu", t:"주봉이나 월봉을 봐봐요.", b:"", ag:6, dis:4, when:"9.4 14:27", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428962636" },
-      { s:"neu", t:"쭉 그대로다", b:"", ag:4, dis:1, when:"9.4 14:12", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428961030" },
-      { s:"neu", t:"진짜", b:"", ag:7, dis:1, when:"9.4 13:15", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428956204" },
-      { s:"neu", t:"만주 가지고 쥐락 펴락 하니 뭐가 되겠어", b:"", ag:3, dis:0, when:"9.4 11:47", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428949576" },
-      { s:"neu", t:"똥인지 된장인지", b:"", ag:0, dis:0, when:"9.4 11:16", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428946877" },
-      { s:"pos", t:"오늘 단기 고점을 만들고 있는듯", b:"", ag:2, dis:2, when:"9.4 10:28", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428941013" },
-      { s:"neu", t:"거래량이...", b:"", ag:1, dis:1, when:"9.4 09:35", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=428934221" }
+      { s:"neg", t:"정말", b:"이런회사가 존재가찌가", ag:0, dis:0, when:"9.14 08:57", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429330066" },
+      { s:"neg", t:"십분의1토막", b:"이 ㅎㅗ로 자ㅂ것들", ag:1, dis:0, when:"9.14 08:51", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429329550" },
+      { s:"neg", t:"작성자가 게시판을 떠나면....", b:"글로벌 임상3상이 성공한 것보다 더 큰 호재라고 하니......재미있습니다.작성자가 게시판을 떠나면 작성자가 제공한 글 때문인지 그 분의 허언 때문인지 모르지만.....잠시 떠나는 것도 좋을 듯 합니다.(작성자 글 ", ag:0, dis:0, when:"9.14 06:56", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429325686" },
+      { s:"neg", t:"일좀해라...경영진들아...", b:"연봉열라 높게받고...성과급열라 챙겨드시고...뭐...수주했다는 소식하나 없냐...임원진 연봉은 경쟁사대비...열라높은데..돈도 못벌면서...왜이리 많이 받는거임 ?에라이 다들 찜사고 집으로...", ag:11, dis:1, when:"9.12 08:44", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429311289" },
+      { s:"neu", t:"개인들 매수평균과 보유물량은 ?", b:"네이버에 등록된 개인투자자 거래정보입니다. 약 14천명이 매수평균 105천원에 물려있습니다.(저층에 물린 개인들만 약 14천명이라는 것이니.......그들은 저가에 매도할 수 없기에.......현재 주가에서 매수하는", ag:1, dis:4, when:"9.11 17:20", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429299258" },
+      { s:"neu", t:"증가하고 있는 외인지분 6.03% 무엇이다 ?", b:"총발행주식수 약 7800만주중 유통가능 물량은 약 2560만주이기에(나머지는 대주주 지분).....외인들 지분 6.03%는 7800 x 0.06 = 약 470만주이고.....470 만주 / 2560 만주 x 100%", ag:3, dis:6, when:"9.11 17:09", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429298890" },
+      { s:"neg", t:"개인들 매도물량이 없다면 무슨일이 II", b:"현재의 가격에서 저가에 털리는 세력들의 물량만 존재하게 됩니다.즉 개인들이 매수한다고 주가를 하락을 시키겠다고 세력들이 매도물량을 내어 놓으면.....그런 물량 당연히 개인들이 매집해가는 것이 되고........개인", ag:2, dis:4, when:"9.11 16:23", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429297195" },
+      { s:"neg", t:"개인들의 매도물량이 없다면 무슨 상황이 ?", b:"지금까지 세력들은 고가에 매도해서 누적평균이 고가인 상태에서.....프로그램 거래로 주가를 하락 시키면서 저가에 매수하면.....저가에 털리는 물량은 개인들 물량이라.......하지만 개인들 매도물량이 없다면....", ag:2, dis:4, when:"9.11 16:04", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429296426" },
+      { s:"pos", t:"신약과 백신의 차이", b:"신약은 병이 걸린사람만을 위해서백신은 그걸 예방하기 위해서백신은 임상에 들어가는 비용이 많은만큼얘네들도 사활을 건 사업인데그래서 국민성장펀드도 지원한거고상용화 성공율이 낮을까요?아무것도 없이 사노피가 붙었을까요본인 ", ag:4, dis:2, when:"9.11 15:45", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429295495" },
+      { s:"neg", t:"내가 말혔제~~?", b:"늙은이 알바 나가기전까지는 주가 안올린다고ㅋㅋㅋㅋㅋㅋㅋㅋ", ag:3, dis:2, when:"9.11 15:42", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429295373" },
+      { s:"neg", t:"조용하네요", b:"힘 빠지시죠? 뭐 말할 의욕도 없으시죠?2만5천원 정도에 진입하겠습니다.건승하십시요", ag:3, dis:5, when:"9.11 15:34", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429294780" },
+      { s:"neg", t:"현재 주가변동성이 가두리 ?", b:"세력들이 만들어가는 변동성에 익숙해진 개인들에게만 가두리 양식이 존재합니다.자유롭게 뛰어 놀고 있는 자연산 물고기에게는 가두리가 존재할 수 없습니다.즉 자연산 물고기는 죽음 아니면 자유 밖에 존재하지 못합니니다.개인", ag:3, dis:4, when:"9.11 15:10", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429292972" },
+      { s:"neg", t:"오늘은 만주로 얼마나 내릴까요", b:"ㅇㅇㅇㅇㅇ", ag:5, dis:1, when:"9.11 08:14", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429257518" },
+      { s:"neu", t:"오늘이 개인 vs 세력 결전의 날입니다", b:"단기적으로 주가변동성을 일으킬 수 있는 그런 분기점이란 것입니다.(중장기 투자자인 경우 매도할 이유가 없으나 단기투자자인 경우 차익이 가능하다면 나쁘지 않음)작성자는 단 한번도 SK바이오사이언스를 벗어난 적이 없습니", ag:11, dis:4, when:"9.11 06:14", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429254324" },
+      { s:"neg", t:"개인들이 매도하면 안되는 이유 ?", b:"미정산된 공매도 3일간의 고가/저가 매도물량으로.....평균 보다 낮은 주가변동성에서는 대기매도 중인 개인들 물량을 저가에 매수하고.....평균 보다 높은 주가변동성에서는 대기매수 중인 개인들 물량으로 고가에 매도하", ag:6, dis:5, when:"9.10 16:06", src:'네이버', url:"https://finance.naver.com/item/board_read.naver?code=302440&nid=429238028" }
     ]
   };
   // ---------- 종토방 인라인 탭 ----------
@@ -920,6 +920,7 @@
   }
 })();
 </script>
+
 
 
 
