@@ -1,3 +1,4 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>SK디스커버리 재무 모닝브리프</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
@@ -618,16 +619,14 @@
     { co:'SK바이오사이언스 · SK플라즈마', kiscd:null, bond:null, note:'한신평 공모 신용등급 없음 (SK바사: 사실상 무차입 · SK플라즈마: 비상장)' },
   ];
   const coPrice = n => { const c=cos.find(c=>c.name===n); return c?c.price:null; };
-  const rptUrl = code => 'https://finance.naver.com/research/company_list.naver?searchType=itemCode&itemCode='+code;
   document.getElementById('broker').innerHTML = RPT.map(r=>{
     const p=coPrice(r.co); const up = (r.tp&&p)? (r.tp/p-1)*100 : null;
     const head = `<div class="h"><a class="k" href="https://comp.wisereport.co.kr/company/c1010001.aspx?cmp_cd=${r.code}" target="_blank" rel="noopener">${r.co} ›</a>
       ${r.tp?`<span class="v num">목표 ${r.tp.toLocaleString('ko-KR')}원 <span class="${up>=0?'up':'down'}">${r.opTxt} · 상승여력 ${up>=0?'+':''}${up.toFixed(0)}%</span></span>`:`<span class="v" style="font-size:12.5px;color:var(--ink-3);font-weight:500">컨센서스 없음</span>`}</div>`;
     const newsQ = w => 'https://search.daum.net/search?w=news&sort=recency&q='+encodeURIComponent(r.co+' '+w.b+' 목표주가');
     const rows = r.rows.map(w=>`<a class="rrow rlink" href="${newsQ(w)}" target="_blank" rel="noopener" title="${r.co} ${w.b} 리포트 관련 기사 검색"><span>${w.b} <small>${w.d}</small></span><span class="num">${w.t?w.t.toLocaleString('ko-KR')+'원':'—'} · ${w.o}${w.x?` <small class="down">${w.x}</small>`:''} <small>› 관련 기사</small></span></a>`).join('');
-    const pdfAll = `<div class="why"><a href="${rptUrl(r.code)}" target="_blank" rel="noopener" style="color:var(--ink-3)">무료 공개 리포트 원문 목록 (네이버 리서치) ›</a></div>`;
-    return `<div class="mvg">${head}${rows}${r.rows.length?pdfAll:''}${r.note?`<div class="why">${r.note}</div>`:''}</div>`;
-  }).join('') + `<div class="why" style="margin-top:8px">표의 목표주가·의견은 FnGuide가 전 증권사 추정치를 집계한 것으로, 원문 PDF를 무료 게재하지 않는 리포트(최근 대형 증권사 다수)도 포함됩니다. 무료 원문은 네이버 리서치에 증권사가 직접 올린 것만 보이며, 최신 리포트의 요지는 각 행의 '관련 기사'로 확인하세요.</div>`;
+    return `<div class="mvg">${head}${rows}${r.note?`<div class="why">${r.note}</div>`:''}</div>`;
+  }).join('') + `<div class="why" style="margin-top:8px">목표주가·의견은 WiseReport(FnGuide)가 전 증권사 추정치를 집계한 컨센서스입니다. 리포트 원문 PDF는 대부분의 증권사가 무료로 공개하지 않고, WiseReport 자체 리포트 원문 서비스도 종료되어 더 이상 제공되지 않습니다. 각 행을 클릭하면 다음뉴스에서 해당 리포트를 인용·보도한 관련 기사를 확인할 수 있습니다. 회사명을 클릭하면 WiseReport 컨센서스 상세 페이지로 이동합니다.</div>`;
   document.getElementById('rating').innerHTML = CRD.map(c=>{
     const url = c.url || (c.kiscd?`https://www.kisrating.com/ratingsSearch/corp_overview.do?kiscd=${c.kiscd}`:null);
     const head = `<div class="h">${url?`<a class="k" href="${url}" target="_blank" rel="noopener">${c.co} ›</a>`:`<span class="k">${c.co}</span>`}
@@ -921,3 +920,4 @@
   }
 })();
 </script>
+</body></html>
